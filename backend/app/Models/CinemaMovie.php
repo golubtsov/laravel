@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class CinemaMovie extends Model
 {
     use HasFactory;
 
-    public function author(){
-        return $this->belongsTo(Author::class);
-    }
+    // protected $table = 'cinema_movie';
 }

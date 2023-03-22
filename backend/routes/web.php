@@ -14,3 +14,7 @@ Route::get('/authors/{name}', 'AuthorController@getAuthorByName');
 
 Route::get('/login', 'LoginController@loginup');
 
+Route::get('/cinemas', 'CinemasController@cinemas');
+
+Route::get('/movies', 'MoviesController@movies');
+

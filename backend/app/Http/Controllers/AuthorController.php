@@ -10,14 +10,13 @@ class AuthorController extends Controller
     public function getListAuthors()
     {
         $authors = \App\Models\Author::all();
-        foreach($authors as $author) {
+        foreach ($authors as $author) {
             echo '<pre>';
-            print_r($author['name']);
-            echo 'books - <br>';
-            if ($author->books) {
-                print_r($author->books);
-            } else {
-                print 'fasle';
+            echo $author->name;
+            echo '<br>';
+            echo 'Books - ';
+            foreach ($author->books as $book) {
+                echo $book->title . ' | ';
             }
             echo '</pre>';
         }

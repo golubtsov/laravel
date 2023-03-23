@@ -14,6 +14,7 @@ class AuthorController extends Controller
         $authors = Author::all();
         echo 'Авторы<br>';
         foreach($authors as $author){
+            dump($author->books);
             echo $author->name . ' - ' . count($author->books) . '<br>';
         }
     }

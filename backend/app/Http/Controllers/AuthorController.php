@@ -12,10 +12,15 @@ class AuthorController extends Controller
     public function getListAuthors()
     {
         $authors = Author::all();
-        echo 'Авторы<br>';
-        foreach($authors as $author){
-            dump($author->books);
-            echo $author->name . ' - ' . count($author->books) . '<br>';
+        $result = [];
+        foreach ($authors as $author) {
+            $result[] = ["$author->name" => count($author->books)];
         }
+        return $result;
+    }
+
+    public function getAuthorById($id)
+    {
+        return Author::find($id);
     }
 }

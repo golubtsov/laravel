@@ -8,15 +8,18 @@ use \App\Models\Genre;
 
 class GenreController extends Controller
 {
-    public function getListGenres(){
+    public function getListGenres()
+    {
+        $result = [];
         $genres = Genre::all();
-        echo 'Жанры<br>';
-        foreach($genres as $genre){
-            echo $genre->name. ': ';
-            foreach($genre->books as $book){
-                echo $book->title . ' | ';
-            }
-            echo '<br>';
+        foreach ($genres as $genre) {
+            $result[] = ["$genre->name" => count($genre->books)];
         }
+        return $result;
+    }
+
+    public function getGenreById($id)
+    {
+        return Genre::find($id);
     }
 }

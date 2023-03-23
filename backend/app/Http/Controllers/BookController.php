@@ -11,9 +11,11 @@ class BookController extends Controller
     public function getListBooks()
     {
         $books = Book::all();
-        echo 'Книги<br>';
-        foreach($books as $book){
-            echo $book->title . '<br>';
-        }
+        return $books;
+    }
+
+    public function getBookById($id)
+    {
+        return Book::find($id);
     }
 }

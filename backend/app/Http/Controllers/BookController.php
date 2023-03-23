@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AuthorController extends Controller
+class BookController extends Controller
 {
-    public function listAuthors()
+    public function listBook()
     {
-        return 'list authors';
+        return 'list Books';
     }
 }

@@ -113,17 +113,113 @@ class DatabaseSeeder extends Seeder
 
         // ===========================================
 
-        $genres = [
-            ['name' => 'Классическая литература'],
-            ['name' => 'Русская проза'],
-            ['name' => 'Зарубежная проза'],
-            ['name' => 'Современная проза'],
-            ['name' => 'Детективы'],
-            ['name' => 'Фантастика']
+        // $genres = [
+        //     ['name' => 'Классическая литература'],
+        //     ['name' => 'Русская проза'],
+        //     ['name' => 'Зарубежная проза'],
+        //     ['name' => 'Современная проза'],
+        //     ['name' => 'Детективы'],
+        //     ['name' => 'Фантастика']
+        // ];
+
+        // foreach($genres as $genre){
+        //     \App\Models\Genre::factory()->create($genre);
+        // }
+
+        // ===========================================
+
+        // ===========================================
+
+        $genre_books = [
+            [
+                'genre_id' => 1,
+                'book_id' => 1
+            ], [
+                'genre_id' => 1,
+                'book_id' => 2
+            ], [
+                'genre_id' => 1,
+                'book_id' => 3
+            ], [
+                'genre_id' => 1,
+                'book_id' => 4
+            ], [
+                'genre_id' => 1,
+                'book_id' => 5
+            ], [
+                'genre_id' => 2,
+                'book_id' => 1
+            ], [
+                'genre_id' => 2,
+                'book_id' => 2
+            ], [
+                'genre_id' => 2,
+                'book_id' => 3
+            ], [
+                'genre_id' => 2,
+                'book_id' => 6
+            ], [
+                'genre_id' => 3,
+                'book_id' => 4
+            ], [
+                'genre_id' => 3,
+                'book_id' => 5
+            ], [
+                'genre_id' => 3,
+                'book_id' => 7
+            ], [
+                'genre_id' => 3,
+                'book_id' => 8
+            ], [
+                'genre_id' => 3,
+                'book_id' => 9
+            ], [
+                'genre_id' => 3,
+                'book_id' => 10
+            ], [
+                'genre_id' => 3,
+                'book_id' => 11
+            ], [
+                'genre_id' => 3,
+                'book_id' => 12
+            ], [
+                'genre_id' => 4,
+                'book_id' => 7
+            ], [
+                'genre_id' => 4,
+                'book_id' => 8
+            ], [
+                'genre_id' => 4,
+                'book_id' => 9
+            ], [
+                'genre_id' => 4,
+                'book_id' => 10
+            ], [
+                'genre_id' => 4,
+                'book_id' => 11
+            ], [
+                'genre_id' => 4,
+                'book_id' => 12
+            ], [
+                'genre_id' => 5,
+                'book_id' => 10
+            ], [
+                'genre_id' => 5,
+                'book_id' => 11
+            ], [
+                'genre_id' => 5,
+                'book_id' => 12
+            ], [
+                'genre_id' => 6,
+                'book_id' => 10
+            ], [
+                'genre_id' => 6,
+                'book_id' => 11
+            ]
         ];
 
-        foreach($genres as $genre){
-            \App\Models\Genre::factory()->create($genre);
+        foreach($genre_books as $el){
+            \App\Models\BookGenre::factory()->create($el);
         }
 
         // ===========================================

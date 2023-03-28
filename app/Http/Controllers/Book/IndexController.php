@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Book;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use \App\Models\Book;
+use App\Actions\Book\IndexAction;
 
 class IndexController extends Controller
 {
-    public function __invoke()
+    public function __invoke(IndexAction $indexAction)
     {
-        $books = Book::paginate(3);
-        return $books;
+        return $indexAction->__invoke();
     }
 }

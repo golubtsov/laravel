@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Menu() {
-    return ( 
+    return (
         <nav>
             <ul className="nav-list">
                 <li className="nav-item">
@@ -19,7 +19,7 @@ function Menu() {
                 </li>
             </ul>
         </nav>
-     );
+    );
 }
 
 export default Menu;

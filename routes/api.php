@@ -23,7 +23,7 @@ Route::group(['namespace' => 'Author'], function(){
 Route::group(['namespace' => 'Genre'], function(){
     Route::get('/genres', [Genre\IndexController::class, '__invoke']);
     Route::get('/genres_paginate', [Genre\IndexPaginateController::class, '__invoke']);
-    Route::get('/genres/{id}', [Genre\GetGenreByIdController::class, 'getGenreById']);
+    Route::get('/genres/{id}', [Genre\GetGenreByIdController::class, '__invoke']);
     Route::post('/genres/create', [Genre\StoreController::class, '__invoke']);
 });
 

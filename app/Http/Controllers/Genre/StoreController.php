@@ -11,7 +11,6 @@ class StoreController extends Controller
     public function __invoke(Request $request)
     {
         $message = [
-            'status' => '',
             'message' => ''
         ];
 
@@ -21,15 +20,20 @@ class StoreController extends Controller
 
         $haveGenre = Genre::where('name', $request['name'])->get();
 
-        if (count($haveGenre) === 0) {
-            $message['status'] = 404;
-            $message['message'] = 'Данный жанр уже существует.';
-            return $message;
-        } else {
-            Genre::create($genre);
-            $message['status'] = 200;
-            $message['message'] = 'Новый жанр успешно добавлен.';
-            return $message;
+        try {
+            if(count($haveGenre) === 0) {
+                Genre::create($genre);
+                $message['message'] = 'Новы жанр создан.';
+                return $message;
+            } else {
+                $message['message'] = 'Данный жанр уже существует.';
+                return response($message, 404);
+            }
+        } catch (\Exception $error) {
+            if ($error) {
+                $message['message'] = 'Что-то пошло не так, попробуйте немного позже.';
+                return response($message, 500);
+            }
         }
     }
 }

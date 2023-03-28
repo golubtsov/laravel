@@ -4,37 +4,12 @@ namespace App\Http\Controllers\Book;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Book;
+use App\Actions\Book\UpdateAction;
 
 class UpdateController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, UpdateAction $updateAction)
     {
-        $message = [
-            'status' => '',
-            'message' => ''
-        ];
-
-        $haveTitle = Book::where('title', $request['title'])->get();
-
-        if (count($haveTitle) === 0) {
-            $book = Book::where('id', $request['id'])->first();
-            try {
-                $book->update($request->all());
-                $message['status'] = 200;
-                $message['message'] = 'Книга успешно обновлена.';
-                return $message;
-            } catch (\Exception $e) {
-                if ($e->getMessage()) {
-                    $message['status'] = 404;
-                    $message['message'] = 'Произошла ошибка, попробуйту немного позже.';
-                    return $message;
-                }
-            }
-        } else {
-            $message['status'] = 404;
-            $message['message'] = 'Книга с таким названием уже существует.';
-            return $message;
-        }
+        return $updateAction->__invoke($request);
     }
 }

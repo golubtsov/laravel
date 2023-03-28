@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Actions\Book;
+namespace App\Actions\Genre;
 
-use App\Models\Book;
+use App\Models\Genre;
 
 class UpdateAction
 {
@@ -12,19 +12,18 @@ class UpdateAction
             'message' => ''
         ];
 
-        $haveBook = Book::find($data['id']);
-        $haveTitle = Book::where('title', $data['title'])->get();
+        $haveGenre = Genre::find($data['id']);
+        $haveName = Genre::where('name', $data['name'])->get();
 
         try {
-            if (count($haveTitle) !== 0) {
-                $message['message'] = 'Книга с таким названием уже существует.';
+            if (count($haveName) !== 0) {
+                $message['message'] = 'Жанр с таким названием уже существует.';
                 return response($message, 404);
             } else {
-                $haveBook->update([
-                    'title' => $data['title'],
-                    'description' => $data['description']
+                $haveGenre->update([
+                    'name' => $data['name']
                 ]);
-                $message['message'] = 'Книга успешно обновлена.';
+                $message['message'] = 'Жанр успешно обновлен.';
                 return response($message, 200);
             }
         } catch (\Exception $error) {

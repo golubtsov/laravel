@@ -11,8 +11,8 @@ Route::group(['namespace' => 'Book'], function(){
     Route::get('/books', [Book\IndexController::class, '__invoke']);
     Route::get('/books/{id}', [Book\GetBookByIdController::class, '__invoke']);
     Route::post('/books/create', [Book\StoreController::class, '__invoke']);
-    Route::post('/books/update', [Book\UpdateController::class, '__invoke']);
-    Route::post('/books/delete', [Book\DestroyController::class, '__invoke']);
+    Route::put('/books/update', [Book\UpdateController::class, '__invoke']);
+    Route::delete('/books/delete/{id}', [Book\DestroyController::class, '__invoke']);
 });
 
 Route::group(['namespace' => 'Author'], function(){
@@ -25,6 +25,8 @@ Route::group(['namespace' => 'Genre'], function(){
     Route::get('/genres_paginate', [Genre\IndexPaginateController::class, '__invoke']);
     Route::get('/genres/{id}', [Genre\GetGenreByIdController::class, '__invoke']);
     Route::post('/genres/create', [Genre\StoreController::class, '__invoke']);
+    Route::put('/genres/update', [Genre\UpdateController::class, '__invoke']);
+    Route::delete('/genres/delete/{id}', [Genre\DestroyController::class, '__invoke']);
 });
 
 Route::post('/login', function(Request $request){

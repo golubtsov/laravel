@@ -3,17 +3,12 @@
 namespace App\Http\Controllers\Genre;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use \App\Models\Genre;
+use App\Actions\Genre\IndexAction;
 
 class IndexController extends Controller
 {
-    public function __invoke()
+    public function __invoke(IndexAction $indexAction)
     {
-        $genres = Genre::all();
-        foreach ($genres as $genre) {
-            $genre->books;
-        }
-        return $genres;
+        return $indexAction->__invoke();
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Book;
+namespace App\Http\Controllers\Genre;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Actions\Book\DestroyAction;
+use App\Actions\Genre\DestroyAction;
 
 class DestroyController extends Controller
 {

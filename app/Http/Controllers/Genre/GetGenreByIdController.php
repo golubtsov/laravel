@@ -3,20 +3,12 @@
 namespace App\Http\Controllers\Genre;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use \App\Models\Genre;
+use App\Actions\Genre\GetGenreByIdAction;
 
 class GetGenreByIdController extends Controller
 {
-    public function __invoke($id)
+    public function __invoke(GetGenreByIdAction $getGenreByIdAction, $id)
     {
-        $genre = Genre::find($id);
-        $books = Genre::find($id)->books;
-        return [
-            'id' => $genre->id,
-            'name' => $genre->name,
-            'books' => $books
-        ];
-        return $books;
+        return $getGenreByIdAction->__invoke($id);
     }
 }

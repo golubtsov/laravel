@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Actions\Book;
+namespace App\Actions\Genre;
 
-use App\Models\Book;
+use App\Models\Genre;
 
 class DestroyAction
 {
@@ -12,15 +12,15 @@ class DestroyAction
             'message' => ''
         ];
 
-        $book = Book::where('id', $id)->get();
+        $genre = Genre::where('id', $id)->get();
 
         try {
-            if (count($book) === 0) {
-                $message['message'] = 'Такой книги не существует.';
+            if (count($genre) === 0) {
+                $message['message'] = 'Такого жанра не существует.';
                 return response($message, 404);
             } else {
-                $book[0]->delete();
-                $message['message'] = 'Книга успешно удалена.';
+                $genre[0]->delete();
+                $message['message'] = 'Жанр успешно удален.';
                 return response($message, 200);
             }
         } catch (\Exception $error) {
@@ -31,3 +31,4 @@ class DestroyAction
         }
     }
 }
+

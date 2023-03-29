@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Author;
 use App\Http\Controllers\Book;
 use App\Http\Controllers\Genre;
+use App\Http\Controllers\Auth;
 
 Route::group(['namespace' => 'Book'], function(){
     Route::get('/books', [Book\IndexController::class, '__invoke']);
@@ -29,10 +30,6 @@ Route::group(['namespace' => 'Genre'], function(){
     Route::delete('/genres/delete/{id}', [Genre\DestroyController::class, '__invoke']);
 });
 
-Route::post('/login', function(Request $request){
-    $user = [
-        $request['email'],
-        $request['password']
-    ];
-    return $user;
+Route::group(['namespace' => 'Ayth'], function(){
+    Route::post('/register', [Auth\RegisterController::class, '__invoke']);
 });

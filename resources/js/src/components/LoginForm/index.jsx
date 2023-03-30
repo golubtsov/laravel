@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Cookie from '../../cookies/Cookie';
 
 function LoginForm() {
     const form = React.createRef();
@@ -12,16 +13,19 @@ function LoginForm() {
         };
         axios
             .post("http://localhost:8000/api/login", user)
-            .then((res) => console.log(res.data));
+            .then((res) => {
+                console.log(res.data);
+                let cookie = new Cookie(
+                    res.data.token,
+                    res.data.user_id,
+                    res.data.role,
+                );
+            });
     };
 
     return (
         <>
-            <form
-                method="POST"
-                action="http://localhost:8000/api/login"
-                ref={form}
-            >
+            <form method="POST" ref={form}>
                 <p>Email</p>
                 <p>
                     <input

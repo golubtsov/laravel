@@ -20,7 +20,7 @@ class LoginAction
             return response([
                 'status' => false,
                 'message' => $validator->getMessageBag()
-            ], 422);
+            ]);
         }
 
         if(Auth::attempt([
@@ -36,13 +36,14 @@ class LoginAction
                 'status' => true,
                 'message' => 'Авторизация прошла успешно!',
                 'token' => $token,
+                'role' => $user->role,
                 'user_id' => $user->id
             ]);
         } else {
             return response([
                 'status' => false,
-                'msg' => 'Email или пароль указаны не верно.'
-            ], 422);
+                'message' => 'Email или пароль указаны не верно.'
+            ]);
         }
     }
 }

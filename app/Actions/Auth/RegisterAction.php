@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class RegisterAction
 {
@@ -58,17 +57,18 @@ class RegisterAction
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
-                'token' => Str::random(40),
+                'token' => '',
                 'role' => 'author'
             ]);
             return response([
+                'status' => true,
                 'message' => 'Регистрация прошла успешно.'
-            ], 200);
+            ])->original;
         } catch (\ErrorException $error) {
             if($error){
                 return response([
                     'message' => 'Что-то пошло не так, попробуйте немного позже.'
-                ], 500);
+                ], 500)->original;
             }
         }
     }
@@ -78,8 +78,9 @@ class RegisterAction
         $validate = $this->validator();
         if ($validate['status'] === false) {
             return response([
+                'status' => false,
                 'message' => $validate['message']
-            ], 404);
+            ], 422)->original;
         } else {
             return $this->create();
         }

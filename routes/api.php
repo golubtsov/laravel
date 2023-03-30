@@ -32,4 +32,5 @@ Route::group(['namespace' => 'Genre'], function(){
 
 Route::group(['namespace' => 'Ayth'], function(){
     Route::post('/register', [Auth\RegisterController::class, '__invoke']);
+    Route::post('/login', [Auth\LoginController::class, '__invoke']);
 });

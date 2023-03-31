@@ -36,5 +36,5 @@ Route::group(['namespace' => 'Ayth'], function(){
 });
 
 Route::post('/test', function(Request $request){
-    return $request->token;
+    return $request;
 });

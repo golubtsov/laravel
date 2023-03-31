@@ -1,17 +1,19 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
-import Menu from "./components/Menu";
-import Main from "./components/Main";
-import Books from "./components/Books";
-import Genres from "./components/Genres";
-import Authors from "./components/Authors";
-import Error from "./components/Error";
-import Author from "./components/Authors/Author";
-import Book from "./components/Books/Book";
-import Genre from "./components/Genres/Genre";
-import LoginForm from "./components/LoginForm";
-import CreateBook from "./components/Books/CreateBook";
+import "./App.scss";
+import Menu from "../Menu";
+import Main from "../Main";
+import Books from "../Books";
+import Genres from "../Genres";
+import Authors from "../Authors";
+import Error from "../Error";
+import Author from "../Authors/Author";
+import Book from "../Books/Book";
+import Genre from "../Genres/Genre";
+import LoginForm from "../LoginForm";
+import CreateBook from "../Books/CreateBook";
+import Navbar from "../Navbar";
+import Cabinet from "../Cabinet";
 
 function App() {
     return (
@@ -27,6 +29,7 @@ function App() {
                 <Route path="/authors" element={<Authors />} />
                 <Route path="/authors/:id" element={<Author />} />
                 <Route path="/login" element={<LoginForm />} />
+                <Route path="/cabinet" element={<Cabinet />} />
                 <Route path="*" element={<Error />} />
             </Routes>
         </>

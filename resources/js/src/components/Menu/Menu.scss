@@ -1,0 +1,56 @@
+menu {
+    width: 100%;
+
+    .blc-logo {
+        width: 100%;
+        background-color: #0038f5;
+        height: 50px;
+        display: grid;
+        grid-template-columns: 30px 1fr auto;
+
+        .blc-btn-menu {
+            width: 30px;
+            height: 100%;
+            cursor: pointer;
+            float: left;
+            margin-top: 10px;
+    
+            .line {
+                width: 90%;
+                height: 2px;
+                background-color: white;
+                margin: 6px;
+                border-radius: 10px;
+            }
+        }
+
+        .blc-img-logo {
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .link-logo {
+                color: white;
+                text-align: center;
+                margin: 0 auto;
+                text-decoration: none;
+
+                .logo {
+                    width: 150px;
+                    height: 50px;
+                }
+            }
+        }
+
+        .blc-user {
+            width: 30px;
+            height: 50px;
+            text-align: right;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 5px;
+        }
+    }
+}

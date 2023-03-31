@@ -6,8 +6,15 @@
 
         <title>Laravel</title>
 
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+
         @viteReactRefresh
-        @vite('resources/js/app.jsx')
+        @vite(['resources/scss/app.scss', 'resources/js/app.jsx'])
     </head>
     <body id="root" class="antialiased"></body>
 </html>

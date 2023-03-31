@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 
 function LoginForm() {
     const form = React.createRef();
-    const [cookies, setCookie] = useCookies(['name']);
+    const [cookies, setCookie] = useCookies(['token']);
 
     const handleForm = (event) => {
         event.preventDefault();
@@ -15,7 +15,7 @@ function LoginForm() {
         axios.post("http://localhost:8000/api/login", user)
             .then((res) => {
                 if (res.data.status) {
-                    setCookie('name', {token: res.data.token});
+                    setCookie('token', {token: res.data.token});
                     alert(checkResponse(res.data.message));
                 } else {
                     alert(checkResponse(res.data.message));
@@ -35,6 +35,7 @@ function LoginForm() {
     };
 
     const cookie = () => {
+        console.log(cookies.name);
         axios.post("http://localhost:8000/api/test", cookies.name)
             .then((res) => {
                 console.log(res.data);

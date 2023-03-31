@@ -1,0 +1,39 @@
+.navbar {
+    background-color: #ebebeb;
+    width: 170px;
+    height: 100vh - 8.5;
+    position: fixed;
+    top: 50px;
+    transform: translateX(-170px);
+    transition: all 0.4s;
+    box-shadow: 0 16px 16px #3e3e3e;
+
+    nav {
+        width: 100%;
+        position: relative;
+        // padding-top: 20px;
+
+        .nav-list {
+            margin: 20px 10px;
+            list-style-type: none;
+
+            .nav-item {
+                margin: 8px 0;
+
+                .link-item {
+                    font-size: 20px;
+                    text-decoration: none;
+                    color: #3b393f;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.active {
+    transform: translateX(0);
+}

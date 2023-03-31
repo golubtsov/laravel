@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./Main.scss";
 
 function Main() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -42,30 +43,32 @@ function Main() {
 
     return (
         <div className="main">
-            <h1>Главная</h1>
-            <ul>
-                <h2>Книги</h2>
-                {books.map((el, index) => (
-                    <li key={index}>
-                        <Link to={`/books/${el.id}`}>{el.title}</Link>
-                    </li>
-                ))}
-            </ul>
-            <p>
-                <button onClick={decrement}>Назад</button>
-                <b>{currentPage}</b>
-                <button onClick={increment}>Вперед</button>
-            </p>
-            <ul>
-                <h2>Жанры</h2>
-                {genres.map((el, index) => (
-                    <li key={index}>
-                        <Link to={`/genres/${el.id}`}>
-                            {el.name} - {el.books.length}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+            <div className="blc-content">
+                <h1>Главная</h1>
+                <ul>
+                    <h2>Книги</h2>
+                    {books.map((el, index) => (
+                        <li key={index}>
+                            <Link to={`/books/${el.id}`}>{el.title}</Link>
+                        </li>
+                    ))}
+                </ul>
+                <p>
+                    <button onClick={decrement}>Назад</button>
+                    <b>{currentPage}</b>
+                    <button onClick={increment}>Вперед</button>
+                </p>
+                <ul>
+                    <h2>Жанры</h2>
+                    {genres.map((el, index) => (
+                        <li key={index}>
+                            <Link to={`/genres/${el.id}`}>
+                                {el.name} - {el.books.length}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }

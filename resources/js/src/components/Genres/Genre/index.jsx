@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import CardBook from "../../CardBook";
+import "../../../../../scss/app.scss";
 
 function Genre() {
     // const [currentPage, setCurrentPage] = useState(1);
@@ -17,39 +19,31 @@ function Genre() {
             });
     }, []);
 
-    // const increment = () => {
-    //     if(currentPage !== perPage) {
-    //         let numPage = currentPage;
-    //         numPage++;
-    //         setCurrentPage(numPage);
-    //     };
-    // }
-
-    // const decrement = () => {
-    //     if(currentPage !== 1) {
-    //         let numPage = currentPage;
-    //         numPage--;
-    //         setCurrentPage(numPage);
-    //     };
-    // }
-
     return (
-        <>
-            <h1>{genre["name"]}</h1>
+        <div className="main">
+            <div className="blc-content">
+                <div className="blc-title">
+                    <h2 className="title">{genre["name"]}</h2>
+                </div>
+                <div className="blc-books">
+                        {genre["books"]?.map((el, index) => (
+                            <CardBook key={index} data={el} />
+                        ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default Genre;
+
+{
+    /* <h1>{genre["name"]}</h1>
             <ul>
                 {genre["books"]?.map((el, index) => (
                     <li key={index}>
                         <Link to={`../../books/${el.id}`}>{el.title}</Link>
                     </li>
                 ))}
-            </ul>
-            {/* <p>
-                <button onClick={decrement}>Назад</button>
-                <b>{currentPage}</b>
-                <button onClick={increment}>Вперед</button>
-            </p> */}
-        </>
-    );
+            </ul> */
 }
-
-export default Genre;

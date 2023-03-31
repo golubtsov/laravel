@@ -5,6 +5,9 @@ import "./CardBook.scss";
 
 function CardBook({ data }) {
     let { id, author, title } = data;
+
+    if(author === undefined) author = '';
+    
     return (
         <div className="card">
             <div className="img-book">

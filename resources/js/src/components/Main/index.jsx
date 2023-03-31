@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./Main.scss";
 import CardBook from "../CardBook";
 import Pagination from "../Pagination";
+import "../../../../scss/app.scss";
 
 function Main() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +36,6 @@ function Main() {
                 lastPage={lastPage}
                 setCurrentPage={setCurrentPage}
             />
-            {/* <Footer /> */}
         </div>
     );
 }

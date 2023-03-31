@@ -1,0 +1,77 @@
+.blc-form {
+    margin-top: 80px;
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    form {
+        width: 500px;
+        margin: auto;
+        margin-top: 15vh;
+        border: 1px solid #d4d4d4;
+        border-radius: 5px;
+
+        .title {
+            border-bottom: 1px solid #d4d4d4;
+            text-align: center;
+            
+            h2 {
+                font-weight: round($number: 8);
+                color: #3b393f;
+                margin: 10px 0;
+            }
+        }
+
+        .data {
+            width: 350px;
+            margin: 20px auto;
+            text-align: center;
+
+            p {
+                margin: 8px 5px;
+                
+                input {
+                    font-size: 16px;
+                    width: 100%;
+                    border: 1px solid #d4d4d4;
+                    border-radius: 3px;
+                    padding: 5px 10px;
+                }
+            }
+
+            .link {
+                color: #3b393f;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .blc-btn {
+            width: 350px;
+            margin: 15px auto;
+            justify-content: center;
+            align-items: center;
+
+            .btn-submit {
+                text-align: center;
+                max-width: 100px;
+                cursor: pointer;
+                margin: auto;
+                background-color: #15b415;
+                color: white;
+                font-size: 18px;
+                padding: 5px 25px;
+                border-radius: 3px;
+                transition: all 0.3s ease-in;
+
+                &:hover {
+                    background-color: #088308;
+                }
+            }
+        }
+    }
+}

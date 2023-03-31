@@ -8,7 +8,7 @@ class IndexPaginateAction
 {
     public function __invoke()
     {
-        $genres = Genre::paginate(3);
+        $genres = Genre::paginate(10);
         foreach ($genres as $genre) {
             $genre->books;
         }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Pagination from "../Pagination";
+import "../../../../scss/app.scss";
 
 function Authors() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -17,42 +19,30 @@ function Authors() {
             });
     }, [currentPage]);
 
-    const increment = () => {
-        if (currentPage !== lastPage) {
-            let numPage = currentPage;
-            numPage++;
-            setCurrentPage(numPage);
-        } else {
-            setCurrentPage(1);
-        }
-    };
-
-    const decrement = () => {
-        if (currentPage !== 1) {
-            let numPage = currentPage;
-            numPage--;
-            setCurrentPage(numPage);
-        }
-    };
-
     return (
-        <>
-            <h1>Авторы</h1>
-            <ul>
-                {authors?.map((el, index) => (
-                    <li key={index}>
-                        <Link to={`/authors/${el.id}`}>
-                            {el.name} - {el.books.length}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-            <p>
-                <button onClick={decrement}>Назад</button>
-                <b>{currentPage}</b>
-                <button onClick={increment}>Вперед</button>
-            </p>
-        </>
+        <div className="main">
+            <div className="blc-content">
+                <div className="blc-title">
+                    <h2 className="title">Авторы</h2>
+                </div>
+                <div className="blc-authors">
+                    <ul className="list">
+                        {authors?.map((el, index) => (
+                            <li key={index}>
+                                <Link className="link" to={`/authors/${el.id}`}>
+                                    {el.name} - {el.books.length}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+            <Pagination
+                currentPage={currentPage}
+                lastPage={lastPage}
+                setCurrentPage={setCurrentPage}
+            />
+        </div>
     );
 }
 

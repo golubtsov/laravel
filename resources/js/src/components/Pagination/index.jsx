@@ -2,6 +2,7 @@ import React from "react";
 import "./Pagination.scss";
 
 function Pagination({ currentPage, lastPage, setCurrentPage }) {
+
     const increment = () => {
         if (currentPage !== lastPage) {
             let numPage = currentPage;
@@ -10,6 +11,7 @@ function Pagination({ currentPage, lastPage, setCurrentPage }) {
         } else {
             setCurrentPage(1);
         }
+        window.scrollTo(0, 0);
     };
 
     const decrement = () => {
@@ -18,6 +20,7 @@ function Pagination({ currentPage, lastPage, setCurrentPage }) {
             numPage--;
             setCurrentPage(numPage);
         }
+        window.scrollTo(0, 0);
     };
 
     return (

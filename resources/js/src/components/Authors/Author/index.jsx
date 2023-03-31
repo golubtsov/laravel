@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import CardBook from "../../CardBook";
+import "../../../../../scss/app.scss";
 
 function Author() {
     const [author, setAuthor] = useState([]);
@@ -12,18 +13,24 @@ function Author() {
     }, []);
 
     return (
-        <>
-            <h1>Автор</h1>
-            <p>{author["name"]}</p>
-            <h3>Список книг</h3>
-            <ul>
-                {author["books"]?.map((el) => (
-                    <li key={el.id}>
-                        <Link to={`../../books/${el.id}`}>{el.title}</Link>
-                    </li>
-                ))}
-            </ul>
-        </>
+        <div className="main">
+            <div className="blc-content">
+                <div className="blc-title">
+                    <h2 className="title">{author["name"]}</h2>
+                </div>
+                <div className="text">
+                    <p>Немного текста об авторе</p>
+                </div>
+                <div className="text">
+                    <h4>Список книг</h4>
+                </div>
+                <div className="blc-books">
+                    {author["books"]?.map((el, index) => (
+                        <CardBook data={el} key={index} />
+                    ))}
+                </div>
+            </div>
+        </div>
     );
 }
 

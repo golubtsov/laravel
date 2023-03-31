@@ -1,6 +1,8 @@
 import React from "react";
-import axios from "axios";
 import { useCookies } from "react-cookie";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import "./LoginForm.scss";
 
 function LoginForm() {
     const form = React.createRef();
@@ -44,27 +46,25 @@ function LoginForm() {
     }
 
     return (
-        <>
-            <form method="POST" ref={form}>
-                <p>Email</p>
-                <p>
-                    <input
-                        type="text"
-                        name="email"
-                        defaultValue={"nik@gmail.com"}
-                    />
-                </p>
-                <p>Пароль</p>
-                <p>
-                    <input type="text" name="password" defaultValue={"12345678"} />
-                </p>
-                <button onClick={handleForm} type="submit">
-                    Отправить
-                </button>
+        <div className="blc-form">
+            <form ref={form}>
+                <div className="title">
+                    <h2>Авторизация</h2>
+                </div>
+                <div className="data">
+                    <p><input type="text" name="email" placeholder="Email *" required /></p>
+                </div>
+                <div className="data">
+                    <p><input type="password" name="password" placeholder="Пароль *" required /></p>
+                </div>
+                <div className="blc-btn">
+                    <div onClick={handleForm} className="btn-submit">Отправить</div>
+                </div>
+                <div className="data">
+                    <Link className="link" to="/signup">Не зарегистрированы?</Link>
+                </div>
             </form>
-
-            <button onClick={cookie}>Cookie</button>
-        </>
+        </div>
     );
 }
 

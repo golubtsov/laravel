@@ -12,8 +12,31 @@ function Book() {
     }, []);
 
     return (
-        <>
-            <h1>{book["title"]}</h1>
+        <div className="main">
+            <div className="blc-content">
+                <div className="blc-title">
+                    <h2 className="title">{book["title"]}</h2>
+                </div>
+                <div className="text">
+                    <Link className="link" to={`../../authors/${book["author_id"]}`}>
+                        {book["author_name"]}
+                    </Link>
+                </div>
+                <div className="text">
+                    <h3>Аннотация</h3>
+                </div>
+                <div className="text">
+                    <p>{book["description"]}</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default Book;
+
+{
+    /* <h1>{book["title"]}</h1>
             <p>
                 <Link to={`../../authors/${book["author_id"]}`}>
                     {book["author_name"]}
@@ -22,9 +45,5 @@ function Book() {
             <p>
                 <b>Аннотация</b>
             </p>
-            <p>{book["description"]}</p>
-        </>
-    );
+            <p>{book["description"]}</p> */
 }
-
-export default Book;

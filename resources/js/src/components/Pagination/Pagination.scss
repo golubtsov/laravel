@@ -1,0 +1,23 @@
+.blc-pagibation {
+    width: 75%;
+    margin: 20px auto;
+    color: #3b393f;
+
+    .conatainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+            width: 30px;
+            height: 30px;
+            border: none;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: #0038f5;
+            color: white;
+            padding: 5px;
+        }
+    }
+}

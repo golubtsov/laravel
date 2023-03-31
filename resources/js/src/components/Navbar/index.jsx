@@ -10,9 +10,9 @@ function Navbar({active, setActiveMenu}) {
                     <li className="nav-item">
                         <Link className="link-item" onClick={() => setActiveMenu(false)} to="/">Главная</Link>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <Link className="link-item" onClick={() => setActiveMenu(false)} to="/books">Книги</Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                         <Link className="link-item" onClick={() => setActiveMenu(false)} to="/genres">Жанры</Link>
                     </li>

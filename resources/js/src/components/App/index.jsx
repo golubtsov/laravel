@@ -12,8 +12,8 @@ import Book from "../Books/Book";
 import Genre from "../Genres/Genre";
 import LoginForm from "../LoginForm";
 import CreateBook from "../Books/CreateBook";
-import Navbar from "../Navbar";
 import Cabinet from "../Cabinet";
+import Footer from "../Footer";
 
 function App() {
     return (
@@ -21,7 +21,7 @@ function App() {
             <Menu />
             <Routes>
                 <Route path="/" element={<Main />} />
-                <Route path="/books" element={<Books />} />
+                {/* <Route path="/books" element={<Books />} /> */}
                 <Route path="/books/:id" element={<Book />} />
                 <Route path="/books/create" element={<CreateBook />} />
                 <Route path="/genres" element={<Genres />} />
@@ -32,6 +32,7 @@ function App() {
                 <Route path="/cabinet" element={<Cabinet />} />
                 <Route path="*" element={<Error />} />
             </Routes>
+            <Footer />
         </>
     );
 }

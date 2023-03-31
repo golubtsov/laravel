@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import CardBook from "../CardBook";
+import "../Main/Main.scss";
 import axios from "axios";
 
 function Books() {
@@ -15,42 +16,19 @@ function Books() {
                 setLastPage(res.data.last_page);
                 setBooks(res.data.data);
             });
-    }, [currentPage]);
-
-    const increment = () => {
-        if (currentPage !== lastPage) {
-            let numPage = currentPage;
-            numPage++;
-            setCurrentPage(numPage);
-        } else {
-            setCurrentPage(1);
-        }
-    };
-
-    const decrement = () => {
-        if (currentPage !== 1) {
-            let numPage = currentPage;
-            numPage--;
-            setCurrentPage(numPage);
-        }
-    };
+    }, []);
 
     return (
-        <>
-            <h1>Книги</h1>
-            <ul>
+        <div className="blc-content">
+            <div className="blc-title">
+                <h2 className="title">Книги</h2>
+            </div>
+            <div className="blc-books">
                 {books.map((el, index) => (
-                    <li key={index}>
-                        <Link to={`/books/${el.id}`}>{el.title}</Link>
-                    </li>
+                    <CardBook data={el} key={index} />
                 ))}
-            </ul>
-            <p>
-                <button onClick={decrement}>Назад</button>
-                <b>{currentPage}</b>
-                <button onClick={increment}>Вперед</button>
-            </p>
-        </>
+            </div>
+        </div>
     );
 }
 

@@ -1,7 +1,28 @@
 .main {
-    // background-color: aquamarine;
-
+    margin-top: 80px;
+    
     .blc-content {
-        
+        width: 75%;
+        height: 80vh;
+        margin: auto;
+        margin-top: 30px;
+        border: 1px solid #d4d4d4;
+        border-radius: 5px;
+
+        .blc-title {
+            text-align: center;
+            
+            .title {
+                color: #3b393f;
+                font-weight: round($number: 8);
+                padding: 10px;
+                border-bottom: 1px solid #d4d4d4;
+            }
+        }
+
+        .blc-books {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
     }
 }

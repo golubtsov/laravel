@@ -8,7 +8,10 @@ class IndexAction
 {
     public function __invoke()
     {
-        $books = Book::paginate(3);
+        $books = Book::paginate(4);
+        foreach($books as $book){
+            $book->author;
+        }
         return $books;
     }
 }

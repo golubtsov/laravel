@@ -3,17 +3,12 @@
 namespace App\Http\Controllers\Author;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use \App\Models\Author;
+use App\Actions\Author\IndexPaginationAction;
 
 class IndexPaginateController extends Controller
 {
-    public function __invoke()
+    public function __invoke(IndexPaginationAction $index)
     {
-        $authors = Author::paginate(10);
-        foreach ($authors as $author) {
-            $author->books;
-        }
-        return $authors;
+        return $index->__invoke();
     }
 }

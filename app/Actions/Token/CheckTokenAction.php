@@ -15,6 +15,7 @@ class CheckTokenAction
             } else {
                 return true;
             }
+            return count($user);
         } catch (\ErrorException $error) {
             if($error){
                 return false;

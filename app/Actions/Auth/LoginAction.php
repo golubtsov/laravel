@@ -35,7 +35,8 @@ class LoginAction
             return response([
                 'status' => true,
                 'message' => 'Авторизация прошла успешно!',
-                'token' => $token
+                'token' => $token,
+                'num' => $user->id
             ]);
         } else {
             return response([

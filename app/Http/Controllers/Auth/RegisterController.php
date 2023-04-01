@@ -17,5 +17,6 @@ class RegisterController extends Controller
             $request->password_confirmation
         ))->register();
         return response()->json($response);
+        // return $request->email;
     }
 }

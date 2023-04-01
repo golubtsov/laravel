@@ -3,6 +3,8 @@
 namespace App\Actions\Auth;
 
 use App\Models\User;
+use App\Models\Author;
+use App\Models\UserAuthor;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -53,12 +55,19 @@ class RegisterAction
     protected function create()
     {
         try {
-            User::create([
+            $user = User::create([
                 'name' => $this->name,
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
                 'token' => '',
                 'role' => 'author'
+            ]);
+            $author = Author::create([
+                'name' => $this->name
+            ]);
+            UserAuthor::create([
+                'user_id' => $user->id,
+                'author_id' => $author->id
             ]);
             return response([
                 'status' => true,
@@ -68,7 +77,7 @@ class RegisterAction
             if($error){
                 return response([
                     'message' => 'Что-то пошло не так, попробуйте немного позже.'
-                ], 500)->original;
+                ], 404)->original;
             }
         }
     }
@@ -80,7 +89,7 @@ class RegisterAction
             return response([
                 'status' => false,
                 'message' => $validate['message']
-            ], 422)->original;
+            ])->original;
         } else {
             return $this->create();
         }

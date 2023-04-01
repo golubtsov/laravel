@@ -58,20 +58,21 @@
         .blc-btn {
             width: 350px;
             margin: 15px auto;
-            justify-content: center;
-            align-items: center;
 
             .btn-submit {
+                display: block;
+                margin: auto;
                 text-align: center;
-                max-width: 100px;
+                max-width: 150px;
                 cursor: pointer;
                 margin: auto;
                 background-color: #15b415;
                 color: white;
                 font-size: 18px;
-                padding: 5px 25px;
+                padding: 4px 15px;
                 border-radius: 3px;
                 transition: all 0.3s ease-in;
+                border: none;
 
                 &:hover {
                     background-color: #088308;

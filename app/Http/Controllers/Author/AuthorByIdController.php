@@ -3,19 +3,12 @@
 namespace App\Http\Controllers\Author;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use \App\Models\Author;
+use App\Actions\Author\AuthorByIdAction;
 
 class AuthorByIdController extends Controller
 {
-    public function __invoke($id)
+    public function __invoke($id, AuthorByIdAction $author)
     {
-        $author = Author::find($id);
-        $books = Author::find($id)->books;
-        return [
-            'id' => $author->id,
-            'name' => $author->name, 
-            'books' => $books
-        ];
+        return $author->__invoke($id);
     }
 }

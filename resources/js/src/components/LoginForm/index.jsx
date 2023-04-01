@@ -20,6 +20,7 @@ function LoginForm() {
                 setCookie("token", { token: res.data.token });
                 alert(checkResponse(res.data.message));
                 setToken(true);
+                window.scrollTo(0, 0);
             } else {
                 alert(checkResponse(res.data.message));
             }
@@ -65,9 +66,9 @@ function LoginForm() {
                     </p>
                 </div>
                 <div className="blc-btn">
-                    <div onClick={handleForm} className="btn-submit">
+                    <button onClick={handleForm} className="btn-submit">
                         Отправить
-                    </div>
+                    </button>
                 </div>
                 <div className="data">
                     <Link className="link" to="/signup">

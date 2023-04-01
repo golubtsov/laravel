@@ -15,7 +15,7 @@
         .title {
             border-bottom: 1px solid #d4d4d4;
             text-align: center;
-            
+
             h2 {
                 font-weight: round($number: 8);
                 color: #3b393f;
@@ -30,13 +30,18 @@
 
             p {
                 margin: 8px 5px;
-                
+
                 input {
                     font-size: 16px;
                     width: 100%;
                     border: 1px solid #d4d4d4;
                     border-radius: 3px;
                     padding: 5px 10px;
+                }
+
+                input:focus {
+                    outline: 0;
+                    box-shadow: 0 0 5px rgba(99, 255, 148, 0.368);
                 }
             }
 

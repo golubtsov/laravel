@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import "./LoginForm.scss";
 
 function LoginForm() {
     const form = React.createRef();
-    const [cookies, setCookie] = useCookies(['token']);
+    const [cookies, setCookie] = useCookies(["token"]);
+    const [token, setToken] = useState(false);
 
     const handleForm = (event) => {
         event.preventDefault();
@@ -14,16 +15,15 @@ function LoginForm() {
             email: form.current.elements.email.value,
             password: form.current.elements.password.value,
         };
-        axios.post("http://localhost:8000/api/login", user)
-            .then((res) => {
-                if (res.data.status) {
-                    setCookie('token', {token: res.data.token});
-                    alert(checkResponse(res.data.message));
-                } else {
-                    alert(checkResponse(res.data.message));
-                }
+        axios.post("http://localhost:8000/api/login", user).then((res) => {
+            if (res.data.status) {
+                setCookie("token", { token: res.data.token });
+                alert(checkResponse(res.data.message));
+                setToken(true);
+            } else {
+                alert(checkResponse(res.data.message));
             }
-        );
+        });
     };
 
     const checkResponse = (msg) => {
@@ -36,14 +36,7 @@ function LoginForm() {
         }
     };
 
-    const cookie = () => {
-        console.log(cookies.name);
-        axios.post("http://localhost:8000/api/test", cookies.name)
-            .then((res) => {
-                console.log(res.data);
-            }
-        );
-    }
+    useEffect(() => {}, [token]);
 
     return (
         <div className="blc-form">
@@ -52,18 +45,37 @@ function LoginForm() {
                     <h2>Авторизация</h2>
                 </div>
                 <div className="data">
-                    <p><input type="text" name="email" placeholder="Email *" required /></p>
+                    <p>
+                        <input
+                            type="text"
+                            name="email"
+                            placeholder="Email *"
+                            required
+                        />
+                    </p>
                 </div>
                 <div className="data">
-                    <p><input type="password" name="password" placeholder="Пароль *" required /></p>
+                    <p>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Пароль *"
+                            required
+                        />
+                    </p>
                 </div>
                 <div className="blc-btn">
-                    <div onClick={handleForm} className="btn-submit">Отправить</div>
+                    <div onClick={handleForm} className="btn-submit">
+                        Отправить
+                    </div>
                 </div>
                 <div className="data">
-                    <Link className="link" to="/signup">Не зарегистрированы?</Link>
+                    <Link className="link" to="/signup">
+                        Не зарегистрированы?
+                    </Link>
                 </div>
             </form>
+            {(token) ? <Navigate to={'../cabinet'} /> : false}
         </div>
     );
 }

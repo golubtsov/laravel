@@ -3,6 +3,8 @@
 namespace App\Actions\Auth;
 
 use App\Models\User;
+use App\Models\UserAuthor;
+use App\Actions\Author\AuthorByIdAction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -32,11 +34,13 @@ class LoginAction
             $user->update([
                 'token' => $token,
             ]);
+            $author = UserAuthor::where('user_id', $user->id)->first();
+            $infoAuthor = (new AuthorByIdAction())->__invoke($author->author_id);
             return response([
                 'status' => true,
                 'message' => 'Авторизация прошла успешно!',
                 'token' => $token,
-                'num' => $user->id
+                'author' => $infoAuthor
             ]);
         } else {
             return response([

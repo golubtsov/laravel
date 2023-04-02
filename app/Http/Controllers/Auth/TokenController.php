@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Actions\Token\CheckTokenAction;
-use App\Actions\Author\AuthorByIdAction;
 
 class TokenController extends Controller
 {
@@ -14,9 +13,10 @@ class TokenController extends Controller
         $response = $token->__invoke($request->token);
         if($response !== false) {
             return response([
-                'access' => true
+                'access' => true,
+                'author' => $response
             ]);
         }
-        return response([], 404);
+        return response(['access' => false]);
     }
 }

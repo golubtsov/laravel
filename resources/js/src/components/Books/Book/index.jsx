@@ -19,7 +19,7 @@ function Book() {
                 </div>
                 <div className="text">
                     <Link className="link" to={`../../authors/${book["author_id"]}`}>
-                        {book["author_name"]}
+                        <b>Автор:</b> {book["author_name"]}
                     </Link>
                 </div>
                 <div className="text">

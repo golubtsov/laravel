@@ -24,19 +24,23 @@
         }
 
         .data {
-            width: 350px;
+            max-width: 350px;
             margin: 20px auto;
             text-align: center;
-
+            
             p {
-                margin: 8px 5px;
+                display: flex;
+                margin: 10px auto;
+                justify-content: center;
 
                 input {
+                    display: flex;
                     font-size: 16px;
                     width: 100%;
                     border: 1px solid #d4d4d4;
                     border-radius: 3px;
                     padding: 5px 10px;
+                    margin: auto;
                 }
 
                 input:focus {
@@ -56,7 +60,6 @@
         }
 
         .blc-btn {
-            width: 350px;
             margin: 15px auto;
 
             .btn-submit {
@@ -76,6 +79,44 @@
 
                 &:hover {
                     background-color: #088308;
+                }
+            }
+        }
+
+        @media screen and (max-width: 550px) {
+            width: 350px;
+
+            .data {
+                margin: 10px;
+            }
+        }
+
+        @media screen and (max-width: 430px) {
+            width: 250px;
+
+            .data {
+                margin: 10px;
+
+                p {
+                    input {
+                        font-size: 12px;
+                    }
+                }
+
+                .link {
+                    font-size: 10px;
+                }
+            }
+
+            .title {
+                h2 {
+                    font-size: 18px;
+                }
+            }
+
+            .blc-btn {
+                .btn-submit {
+                    font-size: 14px;
                 }
             }
         }

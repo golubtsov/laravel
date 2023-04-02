@@ -1,10 +1,15 @@
 .main {
     margin-top: 80px;
     margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    color: #3b393f;
 
     .blc-content {
         width: 75%;
         min-height: 80vh;
+        max-width: 1850px;
         margin: auto;
         margin-top: 30px;
         border: 1px solid #d4d4d4;
@@ -14,7 +19,7 @@
             text-align: center;
 
             .title {
-                color: #3b393f;
+                // color: #3b393f;
                 font-weight: round($number: 8);
                 padding: 10px;
                 border-bottom: 1px solid #d4d4d4;
@@ -37,6 +42,22 @@
         .blc-books {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+
+            @media screen and (max-width: 2000px) {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            @media screen and (max-width: 1300px) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            @media screen and (max-width: 940px) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media screen and (max-width: 710px) {
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
 
         .blc-genres, .blc-authors {
@@ -58,5 +79,22 @@
                 }
             }
         }
+
+        @media screen and (max-width: 1800px) {
+            width: 80%;
+        }
+
+        @media screen and (max-width: 1300px) {
+            width: 70%;
+        }
+
+        @media screen and (max-width: 940px) {
+            width: 70%;
+        }
+    }
+
+    .error {
+        text-align: center;
+        margin: 10px auto;
     }
 }

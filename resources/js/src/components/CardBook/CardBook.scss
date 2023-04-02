@@ -30,4 +30,14 @@
             }
         }
     }
+
+    @media screen and (max-width: 1200px) {
+        max-width: 220px;
+
+        .img-book {
+            img {
+                width: 220px;
+            }
+        }
+    }
 }

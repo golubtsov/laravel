@@ -16,14 +16,14 @@ function Menu() {
     };
 
     const checkCookies = () => {
-        if(cookies['token'] !== undefined) {
+        if(cookies['token'] !== 'undefined') {
             setLinkCabinetDisplay('block');
         }
     }
 
     useEffect(() => {
         checkCookies();
-    }, []);
+    }, [cookies]);
 
     return (
         <menu>

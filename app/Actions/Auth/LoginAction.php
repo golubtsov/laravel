@@ -2,12 +2,11 @@
 
 namespace App\Actions\Auth;
 
-use App\Models\User;
 use App\Models\UserAuthor;
 use App\Actions\Author\AuthorByIdAction;
+use App\Actions\Auth\GetUserByEmailAction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class LoginAction
 {
@@ -29,18 +28,11 @@ class LoginAction
             'email' => $data['email'],
             'password' => $data['password']
         ])){
-            $user = User::where('email', $data['email'])->first();
-            $token = Str::random(40);
-            $user->update([
-                'token' => $token,
-            ]);
-            $author = UserAuthor::where('user_id', $user->id)->first();
-            $infoAuthor = (new AuthorByIdAction())->__invoke($author->author_id);
+            $user = (new GetUserByEmailAction())->__invoke($data['email']);
             return response([
                 'status' => true,
                 'message' => 'Авторизация прошла успешно!',
-                'token' => $token,
-                'author' => $infoAuthor
+                'token' => $user['token']
             ]);
         } else {
             return response([

@@ -18,9 +18,9 @@ function LoginForm() {
         axios.post("http://localhost:8000/api/login", user).then((res) => {
             if (res.data.status) {
                 setCookie("token", { token: res.data.token });
-                alert(checkResponse(res.data.message));
                 setToken(true);
                 window.scrollTo(0, 0);
+                window.location = window.location.origin + '/cabinet';
             } else {
                 alert(checkResponse(res.data.message));
             }
@@ -76,7 +76,6 @@ function LoginForm() {
                     </Link>
                 </div>
             </form>
-            {(token) ? <Navigate to={'../cabinet'} /> : false}
         </div>
     );
 }

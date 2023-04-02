@@ -28,7 +28,7 @@ class StoreController extends Controller
             if ($error) {
                 return response([
                     'access' => false,
-                    'message' => 'Отказано в доступе.'
+                    'message' => 'Что-то пошло не так. Попробуйте немного позже.'
                 ]);
             }
         }

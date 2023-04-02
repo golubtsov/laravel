@@ -25,15 +25,15 @@ class StoreAction
             if (count($haveBook) === 0) {
                 Book::create($book);
                 $message['message'] = 'Книга добавлена.';
-                return response($message, 200);
+                return response($message);
             } else {
                 $message['message'] = 'Книга с таким названием уже существует.';
-                return response($message, 404);
+                return response($message);
             }
         } catch (\Exception $error) {
             if ($error) {
                 $message['message'] = 'Что-то пошло не так, попробуйте немного позже.';
-                return response($message, 500);
+                return response($message);
             }
         }
     }

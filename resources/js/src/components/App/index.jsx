@@ -13,6 +13,7 @@ import LoginForm from "../LoginForm";
 import Signup from "../LoginForm/Signup";
 import CreateBook from "../Books/CreateBook";
 import Cabinet from "../Cabinet";
+import AddBook from "../Cabinet/AddBook";
 import Footer from "../Footer";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/cabinet" element={<Cabinet />} />
+                <Route path="/cabinet/add" element={<AddBook />} />
                 <Route path="*" element={<Error />} />
             </Routes>
             <Footer />

@@ -41,7 +41,7 @@ function Cabinet() {
                                 <Link className="link" to={`../authors/${author.id}`} >Мои книги - {author.books.length}</Link>
                             </li>
                             <li>
-                                <Link className="link">Добавить книгу</Link>
+                                <Link to={'./add'} className="link">Добавить книгу</Link>
                             </li>
                             <li>
                                 <Link className="link">Мои данные</Link>

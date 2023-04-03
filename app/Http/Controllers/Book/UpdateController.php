@@ -15,22 +15,23 @@ class UpdateController extends Controller
         CheckTokenAction $checkTokenAction
     ) {
         try {
-            $check = $checkTokenAction->__invoke($request[0]['token']);
+            $check = $checkTokenAction->__invoke($request['token']);
             if (!$check) {
                 return response([
                     'access' => false,
                     'message' => 'Отказано в доступе.'
                 ]);
             } else {
-                return $updateAction->__invoke($request[0]);
+                return $updateAction->__invoke($request);
             }
         } catch (\ErrorException $error) {
             if ($error) {
                 return response([
                     'access' => false,
-                    'message' => 'Отказано в доступе.'
+                    'message' => 'Что-то пошло не так. Попробуйте немного позже.'
                 ]);
             }
         }
+        return $request;
     }
 }

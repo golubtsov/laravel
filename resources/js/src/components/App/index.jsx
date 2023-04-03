@@ -11,9 +11,9 @@ import Book from "../Books/Book";
 import Genre from "../Genres/Genre";
 import LoginForm from "../LoginForm";
 import Signup from "../LoginForm/Signup";
-import CreateBook from "../Books/CreateBook";
 import Cabinet from "../Cabinet";
 import AddBook from "../Cabinet/AddBook";
+import UpdateBook from "../Cabinet/UpdateBook";
 import Footer from "../Footer";
 
 function App() {
@@ -23,7 +23,6 @@ function App() {
             <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/books/:id" element={<Book />} />
-                <Route path="/books/create" element={<CreateBook />} />
                 <Route path="/genres" element={<Genres />} />
                 <Route path="/genres/:id" element={<Genre />} />
                 <Route path="/authors" element={<Authors />} />
@@ -31,6 +30,7 @@ function App() {
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/cabinet" element={<Cabinet />} />
+                <Route path="/cabinet/update" element={<UpdateBook />} />
                 <Route path="/cabinet/add" element={<AddBook />} />
                 <Route path="*" element={<Error />} />
             </Routes>

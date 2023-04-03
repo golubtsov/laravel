@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { Navigate } from "react-router";
 import axios from "axios";
 
-function AddBook() {
+function UpdateBook() {
+    const form = React.createRef();
     const [cookies, setCookies] = useCookies("token");
     const [access, setAccess] = useState(true);
-    const [id, setId] = useState();
-    const book = {}
-    const form = React.createRef();
+    const [bookId, setBookId] = useState(window.location.search.split("=")[1]); // параметр id из адресса страницы для получения информации о книге
+    const [authorId, setAuthorId] = useState(0);
+    const updateBook = {};
 
     const checkCookies = () => {
         if (cookies["token"] === "undefined") {
@@ -19,38 +21,47 @@ function AddBook() {
     const checkForm = (arr) => {
         let check = false;
         for (let i = 0; i < arr.length - 1; i++) {
-            if(arr[i].value === '') {
+            if (arr[i].value === "") {
                 check = true;
-                alert('Заполните все поля формы.');
+                alert("Заполните все поля формы.");
                 break;
             }
         }
         return check;
-    }
+    };
 
     const clearForm = () => {
-        form.current.elements.title.value = '';
-        form.current.elements.description.value = '';
-    }
+        form.current.elements.title.value = "";
+        form.current.elements.description.value = "";
+    };
 
     const sendBook = (book) => {
-        axios.post('http://127.0.0.1:8000/api/books/create', book)
-            .then(res => {
+        axios
+            .put("http://127.0.0.1:8000/api/books/update", book)
+            .then((res) => {
                 alert(res.data.message);
-                clearForm(form.current.elements);
-            })
-    }
+            });
+    };
+
+    const getBook = () => {
+        axios.get(`http://127.0.0.1:8000/api/books/${bookId}`).then((res) => {
+            form.current.elements.title.value = res.data.title;
+            form.current.elements.description.value = res.data.description;
+            setAuthorId(res.data.author_id);
+        });
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(!checkForm(form.current.elements)){
-            book.token = cookies['token']['token'];
-            book.author_id = id;
-            book.title = form.current.elements.title.value;
-            book.description = form.current.elements.description.value;
-            sendBook(book);
+        if (!checkForm(form.current.elements)) {
+            updateBook.token = cookies["token"]["token"];
+            updateBook.id = bookId;
+            updateBook.author_id = authorId;
+            updateBook.title = form.current.elements.title.value;
+            updateBook.description = form.current.elements.description.value;
+            sendBook(updateBook);
         }
-    }
+    };
 
     useEffect(() => {
         axios
@@ -59,7 +70,7 @@ function AddBook() {
                 if (!res.data.access) {
                     setAccess(false);
                 } else {
-                    setId(res.data.author.id);
+                    getBook();
                 }
             });
     }, [access]);
@@ -71,7 +82,7 @@ function AddBook() {
             <div className="blc-form" style={{ display: "block" }}>
                 <form ref={form}>
                     <div className="title">
-                        <h2>Добавить книгу</h2>
+                        <h2>Редактировать книгу</h2>
                     </div>
                     <div className="data">
                         <p>
@@ -94,7 +105,9 @@ function AddBook() {
                         </p>
                     </div>
                     <div className="blc-btn">
-                        <button onClick={handleSubmit} className="btn-submit">Отправить</button>
+                        <button onClick={handleSubmit} className="btn-submit">
+                            Отправить
+                        </button>
                     </div>
                 </form>
             </div>
@@ -102,4 +115,4 @@ function AddBook() {
     }
 }
 
-export default AddBook;
+export default UpdateBook;

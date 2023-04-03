@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CardBook from "../../CardBook";
-import "../../../../../scss/app.scss";
 
 function Author() {
     const [author, setAuthor] = useState([]);

@@ -2,8 +2,6 @@
 
 namespace App\Actions\Auth;
 
-use App\Models\UserAuthor;
-use App\Actions\Author\AuthorByIdAction;
 use App\Actions\Auth\GetUserByEmailAction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;

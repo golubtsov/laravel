@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Book;
+namespace App\Http\Controllers\Author;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Actions\Book\DestroyAction;
 use App\Actions\Token\CheckTokenAction;
+use App\Models\Author;
 
-class DestroyController extends Controller
+class DataAuthorController extends Controller
 {
-    public function __invoke(Request $request, $id, DestroyAction $destroyAction)
+    public function __invoke(Request $request, $id)
     {
         try {
             $check = (new CheckTokenAction())->__invoke($request['token']);
@@ -19,7 +19,15 @@ class DestroyController extends Controller
                     'message' => 'Отказано в доступе.'
                 ]);
             } else {
-                return $destroyAction->__invoke($id);
+                $dataAuthor = Author::find($id);
+                $dataUser = $dataAuthor->user;
+                return [
+                    "access" => true,
+                    "name" => $dataAuthor['name'],
+                    "about" => $dataAuthor['about'],
+                    "email" => $dataUser[0]['email'],
+                    "books" => $dataAuthor->books,
+                ];
             }
         } catch (\ErrorException $error) {
             if ($error) {

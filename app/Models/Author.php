@@ -17,6 +17,6 @@ class Author extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_authors');
+        return $this->belongsToMany(User::class, 'user_authors');
     }
 }

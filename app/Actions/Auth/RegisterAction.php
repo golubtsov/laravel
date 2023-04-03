@@ -63,7 +63,8 @@ class RegisterAction
                 'role' => 'author'
             ]);
             $author = Author::create([
-                'name' => $this->name
+                'name' => $this->name,
+                'about' => ''
             ]);
             UserAuthor::create([
                 'user_id' => $user->id,

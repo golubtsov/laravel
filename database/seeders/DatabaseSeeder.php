@@ -23,14 +23,38 @@ class DatabaseSeeder extends Seeder
         // ===========================================
 
         $authors = [
-            ['name' => 'Лев Николаевич Толстой'],
-            ['name' => 'Федор Михайлович Достоевский'],
-            ['name' => 'Джордж Оруэлл'],
-            ['name' => 'Борис Акунин'],
-            ['name' => 'Фредрик Бакман'],
-            ['name' => 'Кристин Хармель'],
-            ['name' => 'Дэн Браун'],
-            ['name' => 'Стивен Кинг']
+            [
+                'name' => 'Лев Николаевич Толстой',
+                'about' => 'Немного текста автора о себе.'
+            ],
+            [
+                'name' => 'Федор Михайлович Достоевский',
+                'about' => 'Немного текста автора о себе.'
+            ],
+            [
+                'name' => 'Джордж Оруэлл',
+                'about' => 'Немного текста автора о себе.'
+            ],
+            [
+                'name' => 'Борис Акунин',
+                'about' => 'Немного текста автора о себе.'
+            ],
+            [
+                'name' => 'Фредрик Бакман',
+                'about' => 'Немного текста автора о себе.'
+            ],
+            [
+                'name' => 'Кристин Хармель',
+                'about' => 'Немного текста автора о себе.'
+            ],
+            [
+                'name' => 'Дэн Браун',
+                'about' => 'Немного текста автора о себе.'
+            ],
+            [
+                'name' => 'Стивен Кинг',
+                'about' => 'Немного текста автора о себе.'
+            ]
         ];
 
         foreach ($authors as $author) {
@@ -71,8 +95,7 @@ class DatabaseSeeder extends Seeder
                 'title' => 'Яркие люди Древней Руси',
                 'description' => 'Что-то о книге',
                 'author_id' => 4
-            ]
-            ,
+            ],
             [
                 'title' => 'Тревожные люди',
                 'description' => 'Что-то о книге',
@@ -122,7 +145,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Фантастика']
         ];
 
-        foreach($genres as $genre){
+        foreach ($genres as $genre) {
             \App\Models\Genre::factory()->create($genre);
         }
 
@@ -218,7 +241,7 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
-        foreach($genre_books as $el){
+        foreach ($genre_books as $el) {
             \App\Models\BookGenre::factory()->create($el);
         }
 

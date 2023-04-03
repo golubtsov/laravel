@@ -1,3 +1,7 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .main {
     margin-top: 80px;
     margin-bottom: 30px;
@@ -16,7 +20,6 @@
         margin-top: 30px;
         border: 1px solid #d4d4d4;
         border-radius: 5px;
-        // justify-content: center;
         align-items: center;
         display: flex;
         flex-direction: column;
@@ -72,7 +75,8 @@
             }
         }
 
-        .blc-genres, .blc-authors {
+        .blc-genres,
+        .blc-authors {
             .list {
                 width: 250px;
                 list-style-type: none;
@@ -114,7 +118,8 @@
     .blc-btn {
         margin: 15px auto;
 
-        .btn-submit, .btn-remove {
+        .btn-submit,
+        .btn-remove {
             display: block;
             margin: 5px auto;
             text-align: center;

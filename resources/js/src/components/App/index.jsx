@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import "./App.scss";
 import Menu from "../Menu";
 import Main from "../Main";
 import Genres from "../Genres";
@@ -14,6 +13,7 @@ import Signup from "../LoginForm/Signup";
 import Cabinet from "../Cabinet";
 import AddBook from "../Cabinet/AddBook";
 import UpdateBook from "../Cabinet/UpdateBook";
+import Profile from "../Cabinet/Profile";
 import Footer from "../Footer";
 
 function App() {
@@ -30,6 +30,7 @@ function App() {
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/cabinet" element={<Cabinet />} />
+                <Route path="/cabinet/profile" element={<Profile />} />
                 <Route path="/cabinet/update" element={<UpdateBook />} />
                 <Route path="/cabinet/add" element={<AddBook />} />
                 <Route path="*" element={<Error />} />

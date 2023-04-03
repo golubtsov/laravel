@@ -7,6 +7,7 @@ use App\Http\Controllers\Author;
 use App\Http\Controllers\Book;
 use App\Http\Controllers\Genre;
 use App\Http\Controllers\Auth;
+use App\Http\Controllers\User;
 
 Route::group(['namespace' => 'Book'], function(){
     Route::get('/books', [Book\IndexController::class, '__invoke']);
@@ -36,6 +37,6 @@ Route::group(['namespace' => 'Ayth'], function(){
     Route::post('/token', [Auth\TokenController::class, '__invoke']);
 });
 
-Route::post('/test', function(Request $request){
-    return $request;
+Route::group(['namespace' => 'user'], function(){
+    Route::get('/user/{id}', [User\GetDataUserController::class, '__invoke']);
 });

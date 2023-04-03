@@ -12,7 +12,8 @@ class AuthorByIdAction
         $books = Author::find($id)->books;
         return [
             'id' => $author->id,
-            'name' => $author->name, 
+            'name' => $author->name,
+            'about' => $author->about,
             'books' => $books
         ];
     }

@@ -63,7 +63,7 @@ function Cabinet() {
                         </Link>
                     </div>
                     <div className="text">
-                        <Link className="link">Мой профиль</Link>
+                        <Link to={`./profile?id=${author.id}`} className="link">Мой профиль</Link>
                     </div>
                     <div className="text">
                         <h4>Мои книги - {author.books.length}</h4>

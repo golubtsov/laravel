@@ -11,19 +11,10 @@ class UpdateController extends Controller
 {
     public function __invoke(
         Request $request,
-        UpdateAction $updateAction,
-        CheckTokenAction $checkTokenAction
+        UpdateAction $updateAction
     ) {
         try {
-            $check = $checkTokenAction->__invoke($request['token']);
-            if (!$check) {
-                return response([
-                    'access' => false,
-                    'message' => 'Отказано в доступе.'
-                ]);
-            } else {
-                return $updateAction->__invoke($request);
-            }
+            return $updateAction->__invoke($request);
         } catch (\ErrorException $error) {
             if ($error) {
                 return response([

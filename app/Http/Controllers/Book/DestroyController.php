@@ -3,24 +3,14 @@
 namespace App\Http\Controllers\Book;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Actions\Book\DestroyAction;
-use App\Actions\Token\CheckTokenAction;
 
 class DestroyController extends Controller
 {
-    public function __invoke(Request $request, $id, DestroyAction $destroyAction)
+    public function __invoke($id, DestroyAction $destroyAction)
     {
         try {
-            $check = (new CheckTokenAction())->__invoke($request['token']);
-            if (!$check) {
-                return response([
-                    'access' => false,
-                    'message' => 'Отказано в доступе.'
-                ]);
-            } else {
-                return $destroyAction->__invoke($id);
-            }
+            return $destroyAction->__invoke($id);
         } catch (\ErrorException $error) {
             if ($error) {
                 return response([

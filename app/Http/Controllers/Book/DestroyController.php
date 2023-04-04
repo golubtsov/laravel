@@ -9,15 +9,6 @@ class DestroyController extends Controller
 {
     public function __invoke($id, DestroyAction $destroyAction)
     {
-        try {
-            return $destroyAction->__invoke($id);
-        } catch (\ErrorException $error) {
-            if ($error) {
-                return response([
-                    'access' => false,
-                    'message' => 'Что-то пошло не так. Попробуйте немного позже.'
-                ]);
-            }
-        }
+        return $destroyAction->__invoke($id);
     }
 }

@@ -8,10 +8,17 @@ class IndexAction
 {
     public function __invoke()
     {
-        $books = Book::paginate(5);
-        foreach($books as $book){
-            $book->author;
+        try {
+            $books = Book::paginate(5);
+            foreach ($books as $book) {
+                $book->author;
+            }
+            return $books;
+        } catch (\ErrorException $error) {
+            if ($error) {
+                $message['message'] = 'Что-то пошло не так, попробуйте немного позже.';
+                return response($message);
+            }
         }
-        return $books;
     }
 }

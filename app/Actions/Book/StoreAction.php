@@ -11,17 +11,16 @@ class StoreAction
         $message = [
             'message' => ''
         ];
-
-        $book = [
-            'author_id' => $data['author_id'],
-            'title' => $data['title'],
-            'description' => $data['description']
-        ];
-
-        $haveBook = Book::where('title', $data['title'])->get();
-
-
+        
         try {
+            $book = [
+                'author_id' => $data['author_id'],
+                'title' => $data['title'],
+                'description' => $data['description']
+            ];
+    
+            $haveBook = Book::where('title', $data['title'])->get();
+
             if (count($haveBook) === 0) {
                 Book::create($book);
                 $message['message'] = 'Книга добавлена.';

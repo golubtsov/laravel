@@ -3,7 +3,8 @@
 }
 
 .main {
-    margin: 80px auto;
+    margin: auto;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,7 +15,7 @@
 
     .blc-content {
         width: 100%;
-        min-height: 300px;
+        min-height: 80vh;
         max-width: 1850px;
         margin: auto;
         margin-top: 30px;
@@ -51,6 +52,10 @@
                     text-decoration: underline;
                 }
             }
+
+            .remove {
+                color: #ff0000;
+            }
         }
 
         .blc-books {
@@ -78,9 +83,9 @@
         .blc-genres,
         .blc-authors {
             .list {
-                width: 250px;
+                width: 300px;
                 list-style-type: none;
-                margin: 15px 25px;
+                margin: 15px auto;
 
                 li {
                     margin: 8px 0;
@@ -98,6 +103,40 @@
                         margin-right: 7px;
                         cursor: pointer;
                     }
+                }
+            }
+        }
+
+        .btns {
+            width: 30%;
+            float: left;
+            margin: 10px;
+        
+            .btn-submit, .btn-remove {
+                display: block;
+                margin: 5px auto;
+                text-align: center;
+                max-width: 150px;
+                cursor: pointer;
+                background-color: #15b415;
+                color: white;
+                font-size: 18px;
+                padding: 4px 15px;
+                border-radius: 3px;
+                transition: all 0.3s ease-in;
+                border: none;
+                text-decoration: none;
+        
+                &:hover {
+                    background-color: #088308;
+                }
+            }
+        
+            .btn-remove {
+                background-color: #f12828;
+        
+                &:hover {
+                    background-color: #cd0b0b;
                 }
             }
         }
@@ -159,6 +198,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+
 
     form {
         width: 500px;

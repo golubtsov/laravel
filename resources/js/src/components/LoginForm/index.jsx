@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
-import "./LoginForm.scss";
 
 function LoginForm() {
     const form = React.createRef();

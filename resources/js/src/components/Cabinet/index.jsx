@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Navigate, Link } from "react-router-dom";
 import axios from "axios";
-import "./Cabinet.scss";
 
 function Cabinet() {
     const [cookies, removeCookie] = useCookies("token");
@@ -26,12 +25,27 @@ function Cabinet() {
         axios
             .delete(`http://127.0.0.1:8000/api/books/delete/${bookId}`, {
                 headers: {
-                    token: cookies['token'],
+                    token: cookies["token"],
                 },
-                data: cookies['token']
+                data: cookies["token"],
             })
             .then((res) => {
                 alert(res.data.message);
+                location.reload();
+            });
+    };
+
+    const handleRemoveProfile = () => {
+        axios
+            .delete(`http://127.0.0.1:8000/api/author/delete/${author.id}`, {
+                headers: {
+                    token: cookies["token"],
+                },
+                data: cookies["token"],
+            })
+            .then((res) => {
+                alert(res.data.message);
+                removeCookie("token");
                 location.reload();
             });
     };
@@ -63,7 +77,9 @@ function Cabinet() {
                         </Link>
                     </div>
                     <div className="text">
-                        <Link to={`./profile?id=${author.id}`} className="link">Мой профиль</Link>
+                        <Link to={`./profile?id=${author.id}`} className="link">
+                            Мой профиль
+                        </Link>
                     </div>
                     <div className="text">
                         <h4>Мои книги - {author.books.length}</h4>
@@ -77,7 +93,7 @@ function Cabinet() {
                                             id={el.id}
                                             onChange={handleInputRadio}
                                         />
-                                        {el.title}
+                                        <Link to={`../books/${el.id}`} className="link">{el.title}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -102,6 +118,15 @@ function Cabinet() {
                         >
                             Выйти
                         </a>
+                    </div>
+                    <div className="text">
+                        <p
+                            onClick={handleRemoveProfile}
+                            href="/"
+                            className="link remove"
+                        >
+                            Удалить аккаунт
+                        </p>
                     </div>
                 </div>
             </div>

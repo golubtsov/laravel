@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import "./Menu.scss";
 import logo from "./images/logotip/logo.png";
 import iconUser from "./images/icons-user.png"
 import Navbar from "../Navbar";
+import "./Menu.scss";
 
 function Menu() {
 

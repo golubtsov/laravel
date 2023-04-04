@@ -55,6 +55,7 @@ function Profile() {
             .put(`http://127.0.0.1:8000/api/author/update`, user)
             .then((res) => {
                 alert(res.data.message);
+                window.history.back();
             });
     };
 

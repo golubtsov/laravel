@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_authors', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('author_id');
+            $table->integer('user_id')->constrained()->onDelete('cascade');
+            $table->integer('author_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

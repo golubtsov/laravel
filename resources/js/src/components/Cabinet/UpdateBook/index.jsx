@@ -30,16 +30,12 @@ function UpdateBook() {
         return check;
     };
 
-    const clearForm = () => {
-        form.current.elements.title.value = "";
-        form.current.elements.description.value = "";
-    };
-
     const sendBook = (book) => {
         axios
             .put("http://127.0.0.1:8000/api/books/update", book)
             .then((res) => {
                 alert(res.data.message);
+                window.history.back();
             });
     };
 
@@ -90,6 +86,7 @@ function UpdateBook() {
                                 type="text"
                                 name="title"
                                 placeholder="Название книги"
+                                disabled="true"
                                 required
                             />
                         </p>

@@ -12,15 +12,6 @@ class StoreController extends Controller
         Request $request,
         StoreAction $storeAction
     ) {
-        try {
-            return $storeAction->__invoke($request);
-        } catch (\ErrorException $error) {
-            if ($error) {
-                return response([
-                    'access' => false,
-                    'message' => 'Что-то пошло не так. Попробуйте немного позже.'
-                ]);
-            }
-        }
+        return $storeAction->__invoke($request);
     }
 }

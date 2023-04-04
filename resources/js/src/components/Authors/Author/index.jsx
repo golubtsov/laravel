@@ -18,6 +18,9 @@ function Author() {
                     <h2 className="title">{author["name"]}</h2>
                 </div>
                 <div className="text">
+                    <h4>Биография</h4>
+                </div>
+                <div className="text">
                     <p>{author["about"]}</p>
                 </div>
                 <div className="text">

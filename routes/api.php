@@ -20,6 +20,7 @@ Route::group(['namespace' => 'Author'], function(){
     Route::get('/authors', [Author\IndexPaginateController::class, '__invoke']);
     Route::get('/authors/{id}', [Author\AuthorByIdController::class, '__invoke']);
     Route::post('/author/{id}', [Author\DataAuthorController::class, '__invoke'])->middleware(CkekTokenMiddleware::class);
+    Route::put('/author/update', [Author\UpdateDataController::class, '__invoke'])->middleware(CkekTokenMiddleware::class);
 });
 
 Route::group(['namespace' => 'Genre'], function(){

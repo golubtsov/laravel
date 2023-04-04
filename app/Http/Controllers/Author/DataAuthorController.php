@@ -16,7 +16,6 @@ class DataAuthorController extends Controller
                 "access" => true,
                 "name" => $dataAuthor['name'],
                 "about" => $dataAuthor['about'],
-                "email" => $dataUser[0]['email'],
                 "books" => $dataAuthor->books,
             ];
         } catch (\ErrorException $error) {

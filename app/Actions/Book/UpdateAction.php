@@ -12,10 +12,9 @@ class UpdateAction
             'message' => ''
         ];
 
-        $haveBook = Book::find($data['id']);
-        $haveTitle = Book::where('title', $data['title'])->get();
-
         try {
+            $haveBook = Book::find($data['id']);
+            $haveTitle = Book::where('title', $data['title'])->get();
             if (count($haveTitle) !== 0) {
                 $message['message'] = 'Книга с таким названием уже существует.';
                 return response($message);
@@ -30,7 +29,7 @@ class UpdateAction
         } catch (\Exception $error) {
             if ($error) {
                 $message['message'] = 'Что-то пошло не так, попробуйте немного позже.';
-                return response($message, 500);
+                return response($message);
             }
         }
     }

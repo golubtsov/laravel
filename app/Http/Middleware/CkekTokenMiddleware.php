@@ -19,24 +19,20 @@ class CkekTokenMiddleware
         try {
             $user = User::where('token', $request['token'])->get();
             if (count($user) === 0) {
-                return response(
-                    [
-                        'access' => false,
-                        'message' => 'Отказано в доступе.'
-                    ]
-                ); 
+                return response([
+                    'access' => false,
+                    'message' => 'Отказано в доступе.'
+                ]);
             } else {
                 return $next($request);
             }
             return count($user);
         } catch (\ErrorException $error) {
             if ($error) {
-                return response(
-                    [
-                        'access' => false,
-                        'message' => 'Что-то пошло не так, попробуйте немного позже.'
-                    ]
-                );
+                return response([
+                    'access' => false,
+                    'message' => 'Что-то пошло не так, попробуйте немного позже.'
+                ]);
             }
         }
     }

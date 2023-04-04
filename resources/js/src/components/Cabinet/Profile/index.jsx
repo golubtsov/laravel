@@ -25,12 +25,6 @@ function Profile() {
         }
     };
 
-    const fillForm = () => {
-        form.current.elements.name.value = user.name;
-        form.current.elements.email.value = user.email;
-        form.current.elements.about.value = user.about;
-    }
-
     const getDataUser = () => {
         axios
             .post(
@@ -42,8 +36,25 @@ function Profile() {
                     alert(res.data.message);
                 } else {
                     setUser(res.data);
-                    fillForm();
                 }
+            });
+    };
+
+    const collectData = () => {
+        delete user.access;
+        user.id = authorId;
+        user.name = form.current.elements.name.value;
+        user.about = form.current.elements.about.value;
+        user.token = cookies["token"]["token"];
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        collectData();
+        axios
+            .put(`http://127.0.0.1:8000/api/author/update`, user)
+            .then((res) => {
+                alert(res.data.message);
             });
     };
 
@@ -74,16 +85,7 @@ function Profile() {
                                 type="text"
                                 name="name"
                                 placeholder="ФИО"
-                                required
-                            />
-                        </p>
-                    </div>
-                    <div className="data">
-                        <p>
-                            <input
-                                type="text"
-                                name="email"
-                                placeholder="Email"
+                                defaultValue={user.name}
                                 required
                             />
                         </p>
@@ -94,6 +96,7 @@ function Profile() {
                                 name="about"
                                 placeholder="О себе"
                                 rows="10"
+                                defaultValue={user.about}
                                 required
                             ></textarea>
                         </p>
@@ -103,13 +106,20 @@ function Profile() {
                         <ul className="list">
                             {user.books.map((el, index) => (
                                 <li key={index}>
-                                    <Link className="link">{el.title}</Link>
+                                    <Link
+                                        to={`../../books/${el.id}`}
+                                        className="link"
+                                    >
+                                        {el.title}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
                     </div>
                     <div className="blc-btn">
-                        <button className="btn-submit">Изменить</button>
+                        <button onClick={handleSubmit} className="btn-submit">
+                            Изменить
+                        </button>
                     </div>
                 </form>
             </div>

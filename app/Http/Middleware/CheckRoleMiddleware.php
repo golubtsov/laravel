@@ -23,7 +23,7 @@ class CheckRoleMiddleware
                     'access' => false,
                     'message' => 'Отказано в доступе.'
                 ]);
-            } else if ($user['role'] !== 'admin') {
+            } else if ($user[0]['role'] !== 'admin') {
                 return response([
                     'access' => false,
                     'message' => 'Отказано в доступе.'

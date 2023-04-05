@@ -4,17 +4,25 @@ import { Navigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function Cabinet() {
-    const [cookies] = useCookies("");
+    const [cookies] = useCookies('');
     const [access, setAccess] = useState(true);
     const [author, setAuthor] = useState({ id: 0, books: [] });
     const [bookId, setBookId] = useState(0);
-    const [displayBtns, setDisplayBtns] = useState("none");
+    const [displayBtns, setDisplayBtns] = useState('none');
+    const [displayAdminPanel, setDisplayAdminPanel] = useState('none');
 
     const checkCookies = () => {
         if (cookies["token"] === undefined || cookies["status"] === undefined) {
             return true;
         }
+        return false;
     };
+
+    const checkRole = () => {
+        if (cookies["status"]["status"] === 'admin') {
+            setDisplayAdminPanel('block');
+        }
+    }
 
     const removeCookies = () => {
         document.cookie = "token=; Max-Age=-1;";
@@ -62,6 +70,7 @@ function Cabinet() {
                 if (!res.data.access) {
                     setAccess(false);
                 } else {
+                    checkRole();
                     setAuthor(res.data.author);
                 }
             });
@@ -120,13 +129,13 @@ function Cabinet() {
                             Удалить
                         </button>
                     </div>
-                    <div className="text">
-                        <a
-                            href="../admin"
+                    <div style={{display: displayAdminPanel}} className="text">
+                        <Link
+                            to="../admin"
                             className="link"
                         >
                             Административная панель
-                        </a>
+                        </Link>
                     </div>
                     <div className="text">
                         <a

@@ -10,7 +10,7 @@ function Books() {
     const [access, setAccess] = useState(true);
     const [listBooks, setlistBooks] = useState([]);
     const [listAuthors, setlistAuthors] = useState([]);
-    const newBook = {}
+    const newBook = {};
 
     const checkRole = () => {
         if (cookies["status"] !== undefined) {
@@ -23,42 +23,51 @@ function Books() {
 
     const handleForm = (event) => {
         event.preventDefault();
-        if(checkForm(form.current.elements)){
+        if (checkForm(form.current.elements)) {
             createNewBook();
             sendBook(newBook);
         }
-    }
+    };
 
     const checkForm = (arr) => {
         for (let i = 0; i < arr.length - 1; i++) {
-            if(arr[i].value === ''){
-                alert('Заполните все поля.');
+            if (arr[i].value === "") {
+                alert("Заполните все поля.");
                 return false;
             }
         }
         return true;
-    }
+    };
 
     const createNewBook = () => {
-        newBook.token = cookies['token']['token'];
+        newBook.token = cookies["token"]["token"];
         newBook.title = form.current.elements.title.value;
         newBook.description = form.current.elements.description.value;
         newBook.author_id = form.current.elements.author_id.value;
-    }
+    };
 
     const sendBook = (book) => {
-        axios.post('http://127.0.0.1:8000/api/books/create', book)
-            .then(res => {
-                console.log(res.data);
+        axios
+            .post("http://127.0.0.1:8000/api/books/create", book)
+            .then((res) => {
                 alert(res.data.message);
-                clearForm(form.current.elements);
-            })
-    }
+                location.reload();
+            });
+    };
 
-    const clearForm = () => {
-        form.current.elements.title.value = '';
-        form.current.elements.description.value = '';
-    }
+    const removeBook = (id) => {
+        axios
+            .delete(`http://127.0.0.1:8000/api/books/delete/${id}`, {
+                headers: {
+                    token: cookies["token"],
+                },
+                data: cookies["token"],
+            })
+            .then((res) => {
+                alert(res.data.message);
+                location.reload();
+            });
+    };
 
     useEffect(() => {
         axios
@@ -93,7 +102,13 @@ function Books() {
                                         <Link className="link">{el.title}</Link>
                                     </div>
                                     <div className="btn-remove">
-                                        <button>Удалить</button>
+                                        <button
+                                            onClick={() => {
+                                                removeBook(el.id);
+                                            }}
+                                        >
+                                            Удалить
+                                        </button>
                                     </div>
                                 </div>
                             ))}

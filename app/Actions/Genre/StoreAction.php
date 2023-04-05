@@ -25,12 +25,12 @@ class StoreAction
                 return $message;
             } else {
                 $message['message'] = 'Данный жанр уже существует.';
-                return response($message, 404);
+                return response($message);
             }
         } catch (\Exception $error) {
             if ($error) {
                 $message['message'] = 'Что-то пошло не так, попробуйте немного позже.';
-                return response($message, 500);
+                return response($message);
             }
         }
     }

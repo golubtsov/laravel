@@ -15,7 +15,7 @@ class GetUserByEmailAction
             'token' => $token,
         ]);
         return [
-            'id' => $user->id,
+            'status' => $user->role,
             'token' => $token
         ];
     }

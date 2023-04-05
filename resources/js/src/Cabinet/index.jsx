@@ -4,16 +4,21 @@ import { Navigate, Link } from "react-router-dom";
 import axios from "axios";
 
 function Cabinet() {
-    const [cookies, removeCookie] = useCookies("token");
+    const [cookies] = useCookies("");
     const [access, setAccess] = useState(true);
     const [author, setAuthor] = useState({ id: 0, books: [] });
     const [bookId, setBookId] = useState(0);
     const [displayBtns, setDisplayBtns] = useState("none");
 
     const checkCookies = () => {
-        if (cookies["token"] === "undefined") {
+        if (cookies["token"] === undefined || cookies["status"] === undefined) {
             return true;
         }
+    };
+
+    const removeCookies = () => {
+        document.cookie = "token=; Max-Age=-1;";
+        document.cookie = "status=; Max-Age=-1;";
     };
 
     const handleInputRadio = (event) => {
@@ -45,7 +50,7 @@ function Cabinet() {
             })
             .then((res) => {
                 alert(res.data.message);
-                removeCookie("token");
+                removeCookies();
                 location.reload();
             });
     };
@@ -93,7 +98,12 @@ function Cabinet() {
                                             id={el.id}
                                             onChange={handleInputRadio}
                                         />
-                                        <Link to={`../books/${el.id}`} className="link">{el.title}</Link>
+                                        <Link
+                                            to={`../books/${el.id}`}
+                                            className="link"
+                                        >
+                                            {el.title}
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -112,7 +122,15 @@ function Cabinet() {
                     </div>
                     <div className="text">
                         <a
-                            onClick={() => removeCookie("token")}
+                            href="../admin"
+                            className="link"
+                        >
+                            Административная панель
+                        </a>
+                    </div>
+                    <div className="text">
+                        <a
+                            onClick={() => removeCookies()}
                             href="/"
                             className="link"
                         >

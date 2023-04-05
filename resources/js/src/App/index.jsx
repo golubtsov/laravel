@@ -14,6 +14,7 @@ import Cabinet from "../Cabinet";
 import AddBook from "../Cabinet/AddBook";
 import UpdateBook from "../Cabinet/UpdateBook";
 import Profile from "../Cabinet/Profile";
+import AdminPanel from "../AdminPanel";
 import Footer from "../Footer";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
                 <Route path="/cabinet/profile" element={<Profile />} />
                 <Route path="/cabinet/update" element={<UpdateBook />} />
                 <Route path="/cabinet/add" element={<AddBook />} />
+                <Route path="/admin" element={<AdminPanel />} />
                 <Route path="*" element={<Error />} />
             </Routes>
             <Footer />

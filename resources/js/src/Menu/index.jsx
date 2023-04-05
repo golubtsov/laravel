@@ -10,20 +10,21 @@ function Menu() {
 
     const [cookies] = useCookies('token');
     const [activeMenu, setActiveMenu] = useState(false);
-    const [linkCabinetDisplay, setLinkCabinetDisplay] = useState('none');
+    const [linkCabinetDisplay, setLinkCabinetDisplay] = useState('flex');
+
     const handleMenu = () => {
         activeMenu ? setActiveMenu(false) : setActiveMenu(true);
     };
 
     const checkCookies = () => {
-        if(cookies['token'] !== 'undefined') {
-            setLinkCabinetDisplay('block');
+        if(cookies['token'] === undefined) {
+            setLinkCabinetDisplay('none');
         }
     }
 
     useEffect(() => {
         checkCookies();
-    }, [cookies]);
+    }, [linkCabinetDisplay]);
 
     return (
         <menu>
@@ -38,8 +39,8 @@ function Menu() {
                         <img src={logo} className="logo" />
                     </Link>
                 </div>
-                <div className="blc-user">
-                    <Link style={{display: linkCabinetDisplay}} className="user-cabinet" to="/cabinet">
+                <div style={{display: linkCabinetDisplay}} className="blc-user">
+                    <Link className="user-cabinet" to="/cabinet">
                         <img src={iconUser} className="icon-user" />
                     </Link>
                 </div>

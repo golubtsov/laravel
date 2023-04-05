@@ -16,9 +16,9 @@ function LoginForm() {
         };
         axios.post("http://localhost:8000/api/login", user).then((res) => {
             if (res.data.status) {
-                setCookie("token", { token: res.data.token });
+                setCookie('token', { token: res.data.token });
+                setCookie('status', {status: res.data.status})
                 setToken(true);
-                window.scrollTo(0, 0);
                 window.location = window.location.origin + '/cabinet';
             } else {
                 alert(checkResponse(res.data.message));

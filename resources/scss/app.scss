@@ -85,12 +85,14 @@
             .list {
                 width: 300px;
                 list-style-type: none;
-                margin: 15px auto;
+                margin: 30px auto;
+                text-align: center;
 
                 li {
-                    margin: 8px 0;
+                    margin: 15px 0;
 
                     .link {
+                        font-size: 18px;
                         color: #3b393f;
                         text-decoration: none;
 

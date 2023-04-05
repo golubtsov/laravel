@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Pagination from "../Pagination";
-import "../../../../scss/app.scss";
 
 function Authors() {
     const [currentPage, setCurrentPage] = useState(1);

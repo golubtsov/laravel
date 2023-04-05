@@ -7,6 +7,8 @@ use App\Http\Controllers\Author;
 use App\Http\Controllers\Book;
 use App\Http\Controllers\Genre;
 use App\Http\Controllers\Auth;
+use App\Http\Controllers\Admin;
+use App\Http\Middleware\CheckRoleMiddleware;
 
 Route::group(['namespace' => 'Book'], function(){
     Route::get('/books', [Book\IndexController::class, '__invoke']);
@@ -37,4 +39,8 @@ Route::group(['namespace' => 'Ayth'], function(){
     Route::post('/register', [Auth\RegisterController::class, '__invoke']);
     Route::post('/login', [Auth\LoginController::class, '__invoke']);
     Route::post('/token', [Auth\TokenController::class, '__invoke']);
+});
+
+Route::group(['namespace' => 'Admin'], function(){
+    Route::post('/admin', [Admin\InfoSiteController::class, '__invoke'])->middleware(CheckRoleMiddleware::class);
 });

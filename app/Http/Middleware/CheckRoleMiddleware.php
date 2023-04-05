@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CkekTokenMiddleware
+class CheckRoleMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,6 +19,11 @@ class CkekTokenMiddleware
         try {
             $user = User::where('token', $request['token'])->get();
             if (count($user) === 0) {
+                return response([
+                    'access' => false,
+                    'message' => 'Отказано в доступе.'
+                ]);
+            } else if ($user['role'] !== 'admin') {
                 return response([
                     'access' => false,
                     'message' => 'Отказано в доступе.'

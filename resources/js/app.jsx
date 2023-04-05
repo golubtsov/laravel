@@ -1,16 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import App from "./src/App/index";
 import { CookiesProvider } from "react-cookie";
+import App from "./src/App/index";
+
+import "../scss/app.scss";
+import "../scss/blc-form.scss";
+import "../scss/form.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    // <React.StrictMode>
     <CookiesProvider>
         <BrowserRouter>
             <App />
         </BrowserRouter>
     </CookiesProvider>
-    // </React.StrictMode>
 );

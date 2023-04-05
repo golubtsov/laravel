@@ -1,6 +1,5 @@
 <?php
 
-// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CkekTokenMiddleware;
 use App\Http\Controllers\Author;
@@ -13,6 +12,7 @@ use App\Http\Middleware\CheckRoleMiddleware;
 Route::group(['namespace' => 'Book'], function(){
     Route::get('/books', [Book\IndexController::class, '__invoke']);
     Route::get('/books/{id}', [Book\GetBookByIdController::class, '__invoke']);
+    Route::get('/list/books', [Book\GetListBooksController::class, '__invoke']);
     Route::post('/books/create', [Book\StoreController::class, '__invoke'])->middleware(CkekTokenMiddleware::class);
     Route::put('/books/update', [Book\UpdateController::class, '__invoke'])->middleware(CkekTokenMiddleware::class);
     Route::delete('/books/delete/{id}', [Book\DestroyController::class, '__invoke'])->middleware(CkekTokenMiddleware::class);

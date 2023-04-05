@@ -49,10 +49,10 @@ function AdminPanel() {
                     <div className="blc-genres">
                         <ul className="list">
                             <li>
-                                <Link className="link">Книги - {infoSite.books}</Link>
+                                <Link to={'./books'} className="link">Книги - {infoSite.books}</Link>
                             </li>
                             <li>
-                                <Link className="link">Жанры - {infoSite.genres}</Link>
+                                <Link to={'./genres'} className="link">Жанры - {infoSite.genres}</Link>
                             </li>
                             <li>
                                 <Link className="link">Авторы - {infoSite.authors}</Link>

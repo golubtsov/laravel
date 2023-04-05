@@ -1,0 +1,40 @@
+.admin-list {
+    width: 100%;
+    max-width: 350px;
+
+    .list {
+        margin: 20px auto;
+
+        .block {
+            display: flex;
+            margin: 15px 0;
+
+            .block-name {
+                width: 250px;
+                .link {
+                    color: #3b393f;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .btn-remove {
+                margin-left: 30px;
+
+                button {
+                    border: none;
+                    background-color: white;
+                    color: red;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}

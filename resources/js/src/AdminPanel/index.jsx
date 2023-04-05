@@ -55,7 +55,7 @@ function AdminPanel() {
                                 <Link to={'./genres'} className="link">Жанры - {infoSite.genres}</Link>
                             </li>
                             <li>
-                                <Link className="link">Авторы - {infoSite.authors}</Link>
+                                <Link to={'./authors'} className="link">Авторы - {infoSite.authors}</Link>
                             </li>
                             <li>
                                 <Link className="link">Пользователи - {infoSite.users}</Link>

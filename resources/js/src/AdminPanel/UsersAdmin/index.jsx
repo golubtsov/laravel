@@ -7,7 +7,7 @@ import "../scss/style.scss";
 function Books() {
     const [cookies] = useCookies("");
     const [access, setAccess] = useState(true);
-    const [listGenres, setListGenres] = useState([]);
+    const [listUsers, setListUsers] = useState([]);
 
     const checkRole = () => {
         if (cookies["status"] !== undefined) {
@@ -28,7 +28,7 @@ function Books() {
             });
         axios
             .get("http://localhost:8000/api/genres")
-            .then((res) => setListGenres(res.data));
+            .then((res) => setListUsers(res.data));
     }, [access]);
 
     if (!checkRole() || !access) {
@@ -42,7 +42,7 @@ function Books() {
                     </div>
                     <div className="admin-list">
                         <ul className="list">
-                            {listGenres.map((el) => (
+                            {listUsers.map((el) => (
                                 <div key={el.id} className="block">
                                     <div className="block-name">
                                         <Link className="link">{el.name} - {el.books.length}</Link>

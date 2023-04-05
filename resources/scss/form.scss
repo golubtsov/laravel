@@ -1,6 +1,6 @@
 form {
     width: 500px;
-    margin: auto;
+    margin: 25px auto;
     border: 1px solid #d4d4d4;
     border-radius: 5px;
 
@@ -19,13 +19,15 @@ form {
         max-width: 350px;
         margin: 20px auto;
         text-align: center;
-        
+
         p {
             display: flex;
             margin: 10px auto;
             justify-content: center;
 
-            input, textarea {
+            input,
+            textarea,
+            select {
                 display: flex;
                 font-size: 16px;
                 width: 100%;
@@ -35,7 +37,9 @@ form {
                 margin: auto;
             }
 
-            input:focus, textarea:focus {
+            input:focus,
+            textarea:focus,
+            select:focus {
                 outline: 0;
                 box-shadow: 0 0 5px rgba(99, 255, 148, 0.368);
             }
@@ -53,7 +57,7 @@ form {
 
     .blc-list {
         width: 100%;
-        
+
         h3 {
             text-align: center;
         }

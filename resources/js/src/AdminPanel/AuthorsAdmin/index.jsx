@@ -7,7 +7,7 @@ import "../scss/style.scss";
 function Books() {
     const [cookies] = useCookies("");
     const [access, setAccess] = useState(true);
-    const [listGenres, setListGenres] = useState([]);
+    const [listAuthors, setlistAuthors] = useState([]);
 
     const checkRole = () => {
         if (cookies["status"] !== undefined) {
@@ -27,8 +27,8 @@ function Books() {
                 }
             });
         axios
-            .get("http://localhost:8000/api/genres")
-            .then((res) => setListGenres(res.data));
+            .get("http://localhost:8000/api/list/authors")
+            .then((res) => setlistAuthors(res.data));
     }, [access]);
 
     if (!checkRole() || !access) {
@@ -38,18 +38,18 @@ function Books() {
             <div className="main">
                 <div className="blc-content">
                     <div className="blc-title">
-                        <h2 className="title">Жанры</h2>
+                        <h2 className="title">Авторы</h2>
                     </div>
                     <div className="admin-list">
                         <ul className="list">
-                            {listGenres.map((el) => (
+                            {listAuthors.map((el) => (
                                 <div key={el.id} className="block">
                                     <div className="block-name">
-                                        <Link className="link">{el.name} - {el.books.length}</Link>
+                                        <Link className="link">{el.name}</Link>
                                     </div>
-                                    <div className="btn-remove">
+                                    {/* <div className="btn-remove">
                                         <button>Удалить</button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             ))}
                         </ul>
@@ -57,16 +57,26 @@ function Books() {
                     <div className="blc-add">
                         <form>
                             <div className="title">
-                                <h2>Добавить жанр</h2>
+                                <h2>Добавить автора</h2>
                             </div>
                             <div className="data">
                                 <p>
                                     <input
                                         type="text"
                                         name="name"
-                                        placeholder="Название"
+                                        placeholder="ФИО"
                                         required
                                     />
+                                </p>
+                            </div>
+                            <div className="data">
+                                <p>
+                                    <textarea
+                                        name="description"
+                                        placeholder="Немного текста об авторе"
+                                        rows="10"
+                                        required
+                                    ></textarea>
                                 </p>
                             </div>
                             <div className="blc-btn">

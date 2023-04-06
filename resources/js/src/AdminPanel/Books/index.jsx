@@ -10,6 +10,7 @@ function Books() {
     const [access, setAccess] = useState(true);
     const [listBooks, setlistBooks] = useState([]);
     const [listAuthors, setlistAuthors] = useState([]);
+    const [listGenres, setListGenres] = useState([]);
     const newBook = {};
 
     const checkRole = () => {
@@ -44,6 +45,7 @@ function Books() {
         newBook.title = form.current.elements.title.value;
         newBook.description = form.current.elements.description.value;
         newBook.author_id = form.current.elements.author_id.value;
+        newBook.genres = checkboks(form.current.elements.genre_id);
     };
 
     const sendBook = (book) => {
@@ -54,6 +56,16 @@ function Books() {
                 location.reload();
             });
     };
+
+    const checkboks = (arr) => {
+        let elemsChecked = [];
+        for (const el of arr) {
+            if(el.checked) {
+                elemsChecked = [...elemsChecked, +el.value];
+            }
+        }
+        return elemsChecked;
+    }
 
     const removeBook = (id) => {
         axios
@@ -83,6 +95,9 @@ function Books() {
         axios
             .get("http://localhost:8000/api/list/authors")
             .then((res) => setlistAuthors(res.data));
+        axios
+            .get("http://localhost:8000/api/genres")
+            .then((res) => setListGenres(res.data));
     }, [access]);
 
     if (!checkRole() || !access) {
@@ -149,6 +164,20 @@ function Books() {
                                         ))}
                                     </select>
                                 </p>
+                            </div>
+                            <div className="checkboks">
+                                <h3>Выбирите жанр</h3>
+                                {listGenres.map((el) => (
+                                    <p>
+                                        <input
+                                            value={el.id}
+                                            key={el.id}
+                                            type="checkbox"
+                                            name="genre_id"
+                                        />
+                                        {el.name}
+                                    </p>
+                                ))}
                             </div>
                             <div className="blc-btn">
                                 <button

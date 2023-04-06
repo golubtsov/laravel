@@ -5,9 +5,11 @@ import { useCookies } from "react-cookie";
 import "../scss/style.scss";
 
 function Books() {
+    const form = React.createRef();
     const [cookies] = useCookies("");
     const [access, setAccess] = useState(true);
     const [listAuthors, setlistAuthors] = useState([]);
+    const newAuthor = {}
 
     const checkRole = () => {
         if (cookies["status"] !== undefined) {
@@ -18,6 +20,53 @@ function Books() {
         return false;
     };
 
+    const handleForm = (event) => {
+        event.preventDefault();
+        if (checkForm(form.current.elements)) {
+            createNewAuthor();
+            sendAuthor(newAuthor);
+        }
+    };
+
+    const checkForm = (arr) => {
+        for (let i = 0; i < arr.length - 1; i++) {
+            if (arr[i].value === "") {
+                alert("Заполните все поля.");
+                return false;
+            }
+        }
+        return true;
+    };
+
+    const createNewAuthor = () => {
+        newAuthor.token = cookies["token"]["token"];
+        newAuthor.name = form.current.elements.name.value;
+        newAuthor.about = form.current.elements.about.value;
+    };
+
+    const sendAuthor = (author) => {
+        axios
+            .post("http://127.0.0.1:8000/api/authors/create", author)
+            .then((res) => {
+                alert(res.data.message);
+                location.reload();
+            });
+    };
+
+    // const removeBook = (id) => {
+    //     axios
+    //         .delete(`http://127.0.0.1:8000/api/books/delete/${id}`, {
+    //             headers: {
+    //                 token: cookies["token"],
+    //             },
+    //             data: cookies["token"],
+    //         })
+    //         .then((res) => {
+    //             alert(res.data.message);
+    //             location.reload();
+    //         });
+    // };
+
     useEffect(() => {
         axios
             .post("http://127.0.0.1:8000/api/token", cookies["token"])
@@ -27,8 +76,8 @@ function Books() {
                 }
             });
         axios
-            .get("http://localhost:8000/api/list/authors")
-            .then((res) => setlistAuthors(res.data));
+            .get("http://localhost:8000/api/authors")
+            .then((res) => setlistAuthors(res.data.data));
     }, [access]);
 
     if (!checkRole() || !access) {
@@ -45,17 +94,17 @@ function Books() {
                             {listAuthors.map((el) => (
                                 <div key={el.id} className="block">
                                     <div className="block-name">
-                                        <Link className="link">{el.name}</Link>
+                                        <Link className="link">{el.name} - {el.books.length}</Link>
                                     </div>
-                                    {/* <div className="btn-remove">
+                                    <div className="btn-remove">
                                         <button>Удалить</button>
-                                    </div> */}
+                                    </div>
                                 </div>
                             ))}
                         </ul>
                     </div>
                     <div className="blc-add">
-                        <form>
+                        <form ref={form}>
                             <div className="title">
                                 <h2>Добавить автора</h2>
                             </div>
@@ -72,7 +121,7 @@ function Books() {
                             <div className="data">
                                 <p>
                                     <textarea
-                                        name="description"
+                                        name="about"
                                         placeholder="Немного текста об авторе"
                                         rows="10"
                                         required
@@ -81,7 +130,7 @@ function Books() {
                             </div>
                             <div className="blc-btn">
                                 <button
-                                    // onClick={handleForm}
+                                    onClick={handleForm}
                                     className="btn-submit"
                                 >
                                     Создать

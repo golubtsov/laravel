@@ -23,6 +23,7 @@ Route::group(['namespace' => 'Author'], function(){
     Route::get('/list/authors', [Author\GetListAuthorsController::class, '__invoke']);
     Route::get('/authors/{id}', [Author\AuthorByIdController::class, '__invoke']);
     Route::post('/author/{id}', [Author\DataAuthorController::class, '__invoke'])->middleware(CkekTokenMiddleware::class);
+    Route::post('/authors/create', [Author\StoreController::class, '__invoke'])->middleware(CkekTokenMiddleware::class);
     Route::put('/author/update', [Author\UpdateDataController::class, '__invoke'])->middleware(CkekTokenMiddleware::class);
     Route::delete('/author/delete/{id}', [Author\DeleteProfileController::class, '__invoke'])->middleware(CkekTokenMiddleware::class);
 });

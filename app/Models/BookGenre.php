@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class BookGenre extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     protected $table = 'book_genres';
 }

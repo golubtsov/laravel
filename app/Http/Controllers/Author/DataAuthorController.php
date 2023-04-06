@@ -11,7 +11,6 @@ class DataAuthorController extends Controller
     {
         try {
             $dataAuthor = Author::find($id);
-            $dataUser = $dataAuthor->user;
             return [
                 "access" => true,
                 "name" => $dataAuthor['name'],

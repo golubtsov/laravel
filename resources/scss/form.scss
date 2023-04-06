@@ -23,7 +23,6 @@ form {
         p {
             display: flex;
             margin: 10px auto;
-            justify-content: center;
 
             input,
             textarea,
@@ -52,6 +51,20 @@ form {
             &:hover {
                 text-decoration: underline;
             }
+        }
+    }
+
+    .checkboks {
+        max-width: 350px;
+        margin: 20px auto;
+
+        h3 {
+            font-weight: calc(1);
+            margin: 10px 0;
+        }
+
+        input {
+            margin-right: 10px;
         }
     }
 

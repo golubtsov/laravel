@@ -6,10 +6,10 @@ import axios from "axios";
 
 function UpdateBook() {
     const form = React.createRef();
-    const [cookies, setCookies] = useCookies("token");
+    const [cookies] = useCookies("token");
     const [access, setAccess] = useState(true);
-    const [bookId, setBookId] = useState(window.location.search.split("=")[1]); // параметр id из адресса страницы для получения информации о книге
     const [authorId, setAuthorId] = useState(0);
+    const bookId = window.location.search.split("=")[1]; // параметр id из адресса страницы для получения информации о книге
     const updateBook = {};
 
     const checkCookies = () => {
@@ -30,6 +30,18 @@ function UpdateBook() {
         return check;
     };
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (!checkForm(form.current.elements)) {
+            updateBook.token = cookies["token"]["token"];
+            updateBook.id = bookId;
+            updateBook.author_id = authorId;
+            updateBook.title = form.current.elements.title.value;
+            updateBook.description = form.current.elements.description.value;
+            sendBook(updateBook);
+        }
+    };
+
     const sendBook = (book) => {
         axios
             .put("http://127.0.0.1:8000/api/books/update", book)
@@ -45,18 +57,6 @@ function UpdateBook() {
             form.current.elements.description.value = res.data.description;
             setAuthorId(res.data.author_id);
         });
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (!checkForm(form.current.elements)) {
-            updateBook.token = cookies["token"]["token"];
-            updateBook.id = bookId;
-            updateBook.author_id = authorId;
-            updateBook.title = form.current.elements.title.value;
-            updateBook.description = form.current.elements.description.value;
-            sendBook(updateBook);
-        }
     };
 
     useEffect(() => {

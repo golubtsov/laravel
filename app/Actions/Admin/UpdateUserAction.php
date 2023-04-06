@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Actions\Book;
+namespace App\Actions\Admin;
 
-use \App\Models\Book;
+use App\Models\User;
 
-class IndexAction
+class UpdateUserAction
 {
-    public function __invoke()
+    public function __invoke($user)
     {
+        return '$users';
         try {
-            $books = Book::paginate(10);
-            foreach ($books as $book) {
-                $book->author;
-            }
-            return $books;
+            
         } catch (\ErrorException $error) {
             if ($error) {
                 $message['message'] = 'Что-то пошло не так, попробуйте немного позже.';

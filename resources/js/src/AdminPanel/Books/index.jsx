@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
-import axios from "axios";
 import { useCookies } from "react-cookie";
+import axios from "axios";
+import Pagination from "../../Pagination";
 import "../scss/style.scss";
 
 function Books() {
     const form = React.createRef();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [lastPage, setLastPage] = useState(1);
     const [cookies] = useCookies("");
     const [access, setAccess] = useState(true);
     const [listBooks, setlistBooks] = useState([]);
@@ -60,12 +63,12 @@ function Books() {
     const checkboks = (arr) => {
         let elemsChecked = [];
         for (const el of arr) {
-            if(el.checked) {
+            if (el.checked) {
                 elemsChecked = [...elemsChecked, +el.value];
             }
         }
         return elemsChecked;
-    }
+    };
 
     const removeBook = (id) => {
         axios
@@ -90,15 +93,19 @@ function Books() {
                 }
             });
         axios
-            .get("http://localhost:8000/api/list/books")
-            .then((res) => setlistBooks(res.data));
+            .get(`http://localhost:8000/api/books?page=${currentPage}`)
+            .then((res) => {
+                setCurrentPage(res.data.current_page);
+                setLastPage(res.data.last_page);
+                setlistBooks(res.data.data);
+            });
         axios
             .get("http://localhost:8000/api/list/authors")
             .then((res) => setlistAuthors(res.data));
         axios
             .get("http://localhost:8000/api/genres")
             .then((res) => setListGenres(res.data));
-    }, [access]);
+    }, [currentPage]);
 
     if (!checkRole() || !access) {
         return <Navigate to={"/"} />;
@@ -114,7 +121,7 @@ function Books() {
                             {listBooks.map((el) => (
                                 <div key={el.id} className="block">
                                     <div className="block-name">
-                                        <Link className="link">{el.title}</Link>
+                                        <Link to={`../../books/${el.id}`} className="link">{el.title}</Link>
                                     </div>
                                     <div className="btn-remove">
                                         <button
@@ -129,6 +136,11 @@ function Books() {
                             ))}
                         </ul>
                     </div>
+                    <Pagination
+                        currentPage={currentPage}
+                        lastPage={lastPage}
+                        setCurrentPage={setCurrentPage}
+                    />
                     <div className="blc-add">
                         <form ref={form}>
                             <div className="title">

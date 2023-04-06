@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
-import axios from "axios";
 import { useCookies } from "react-cookie";
+import Pagination from "../../Pagination";
+import axios from "axios";
 import "../scss/style.scss";
 
 function Books() {
     const form = React.createRef();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [lastPage, setLastPage] = useState(1);
     const [cookies] = useCookies("");
     const [access, setAccess] = useState(true);
     const [listGenres, setListGenres] = useState([]);
@@ -75,8 +78,14 @@ function Books() {
                 }
             });
         axios
-            .get("http://localhost:8000/api/genres")
-            .then((res) => setListGenres(res.data));
+            .get(
+                `http://localhost:8000/api/genres_paginate?page=${currentPage}`
+            )
+            .then((res) => {
+                setCurrentPage(res.data.current_page);
+                setLastPage(res.data.last_page);
+                setListGenres(res.data.data);
+            });
     }, [access]);
 
     if (!checkRole() || !access) {
@@ -93,7 +102,7 @@ function Books() {
                             {listGenres.map((el) => (
                                 <div key={el.id} className="block">
                                     <div className="block-name">
-                                        <Link className="link">
+                                        <Link to={`../../genres/${el.id}`} className="link">
                                             {el.name} - {el.books.length}
                                         </Link>
                                     </div>
@@ -110,6 +119,11 @@ function Books() {
                             ))}
                         </ul>
                     </div>
+                    <Pagination
+                        currentPage={currentPage}
+                        lastPage={lastPage}
+                        setCurrentPage={setCurrentPage}
+                    />
                     <div className="blc-add">
                         <form ref={form}>
                             <div className="title">

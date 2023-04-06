@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
-import axios from "axios";
 import { useCookies } from "react-cookie";
+import axios from "axios";
+import Pagination from "../../Pagination";
 import "../scss/style.scss";
 
 function Books() {
     const form = React.createRef();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [lastPage, setLastPage] = useState(1);
     const [cookies] = useCookies("");
     const [access, setAccess] = useState(true);
     const [listAuthors, setlistAuthors] = useState([]);
-    const newAuthor = {}
+    const newAuthor = {};
 
     const checkRole = () => {
         if (cookies["status"] !== undefined) {
@@ -76,8 +79,12 @@ function Books() {
                 }
             });
         axios
-            .get("http://localhost:8000/api/authors")
-            .then((res) => setlistAuthors(res.data.data));
+            .get(`http://127.0.0.1:8000/api/authors?page=${currentPage}`)
+            .then((res) => {
+                setCurrentPage(res.data.current_page);
+                setLastPage(res.data.last_page);
+                setlistAuthors(res.data.data);
+            });
     }, [access]);
 
     if (!checkRole() || !access) {
@@ -94,7 +101,9 @@ function Books() {
                             {listAuthors.map((el) => (
                                 <div key={el.id} className="block">
                                     <div className="block-name">
-                                        <Link className="link">{el.name} - {el.books.length}</Link>
+                                        <Link to={`../../authors/${el.id}`} className="link">
+                                            {el.name} - {el.books.length}
+                                        </Link>
                                     </div>
                                     <div className="btn-remove">
                                         <button>Удалить</button>
@@ -103,6 +112,11 @@ function Books() {
                             ))}
                         </ul>
                     </div>
+                    <Pagination
+                        currentPage={currentPage}
+                        lastPage={lastPage}
+                        setCurrentPage={setCurrentPage}
+                    />
                     <div className="blc-add">
                         <form ref={form}>
                             <div className="title">

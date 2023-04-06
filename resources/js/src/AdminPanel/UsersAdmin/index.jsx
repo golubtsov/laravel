@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import "../scss/style.scss";
@@ -27,7 +27,7 @@ function Books() {
                 }
             });
         axios
-            .get("http://localhost:8000/api/genres")
+            .post("http://localhost:8000/api/admin/users", cookies["token"])
             .then((res) => setListUsers(res.data));
     }, [access]);
 
@@ -38,46 +38,47 @@ function Books() {
             <div className="main">
                 <div className="blc-content">
                     <div className="blc-title">
-                        <h2 className="title">Жанры</h2>
+                        <h2 className="title">Пользователи</h2>
                     </div>
                     <div className="admin-list">
-                        <ul className="list">
+                        <ol className="list">
                             {listUsers.map((el) => (
-                                <div key={el.id} className="block">
-                                    <div className="block-name">
-                                        <Link className="link">{el.name} - {el.books.length}</Link>
+                                <li>
+                                    <div className="user">
+                                        <div className="name">
+                                            <p>{el.name}</p>
+                                        </div>
+                                        <div className="email">
+                                            <p>{el.email}</p>
+                                        </div>
+                                        <div className="role">
+                                            <select name="" id="">
+                                                <option
+                                                    selected
+                                                    value={el.role}
+                                                >
+                                                    {el.role}
+                                                </option>
+                                                <option
+                                                    value={
+                                                        el.role === "admin"
+                                                            ? "admin"
+                                                            : "author"
+                                                    }
+                                                >
+                                                    {el.role === "admin"
+                                                        ? "author"
+                                                        : "admin"}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div className="save">
+                                            <button>Изменить</button>
+                                        </div>
                                     </div>
-                                    <div className="btn-remove">
-                                        <button>Удалить</button>
-                                    </div>
-                                </div>
+                                </li>
                             ))}
-                        </ul>
-                    </div>
-                    <div className="blc-add">
-                        <form>
-                            <div className="title">
-                                <h2>Добавить жанр</h2>
-                            </div>
-                            <div className="data">
-                                <p>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        placeholder="Название"
-                                        required
-                                    />
-                                </p>
-                            </div>
-                            <div className="blc-btn">
-                                <button
-                                    // onClick={handleForm}
-                                    className="btn-submit"
-                                >
-                                    Создать
-                                </button>
-                            </div>
-                        </form>
+                        </ol>
                     </div>
                 </div>
             </div>

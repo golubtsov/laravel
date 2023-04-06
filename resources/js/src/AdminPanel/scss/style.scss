@@ -11,6 +11,7 @@
 
             .block-name {
                 width: 280px;
+
                 .link {
                     color: #3b393f;
                     text-decoration: none;
@@ -32,6 +33,38 @@
 
                     &:hover {
                         text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        .user {
+            margin: 10px auto;
+
+            div {
+                margin: 8px 0;
+
+                .link {
+                    color: #3b393f;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .save {
+                button {
+                    cursor: pointer;
+                    border: none;
+                    background-color: #15b415;
+                    color: white;
+                    padding: 3px 7px;
+                    border-radius: 3px;
+
+                    &:hover {
+                        background-color: #088308;
                     }
                 }
             }

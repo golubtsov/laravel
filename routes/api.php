@@ -45,4 +45,6 @@ Route::group(['namespace' => 'Ayth'], function(){
 
 Route::group(['namespace' => 'Admin'], function(){
     Route::post('/admin', [Admin\InfoSiteController::class, '__invoke'])->middleware(CheckRoleMiddleware::class);
+    Route::post('/admin/users', [Admin\GetListUsersController::class, '__invoke'])->middleware(CheckRoleMiddleware::class);
+    Route::put('/admin/users/update', [Admin\UpdateUserController::class, '__invoke'])->middleware(CheckRoleMiddleware::class);
 });

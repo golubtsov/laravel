@@ -18,6 +18,7 @@ import AdminPanel from "../AdminPanel";
 import Books from "../AdminPanel/Books";
 import GenresAdmin from "../AdminPanel/GenresAdmin";
 import AuthorsAdmin from "../AdminPanel/AuthorsAdmin";
+import UsersAdmin from "../AdminPanel/UsersAdmin";
 import Footer from "../Footer";
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/admin/books" element={<Books />} />
                 <Route path="/admin/genres" element={<GenresAdmin />} />
                 <Route path="/admin/authors" element={<AuthorsAdmin />} />
+                <Route path="/admin/users" element={<UsersAdmin />} />
                 <Route path="*" element={<Error />} />
             </Routes>
             <Footer />

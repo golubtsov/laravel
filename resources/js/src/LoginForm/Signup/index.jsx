@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import API from "../../API";
 
 function Sidnup() {
     const form = React.createRef();
@@ -45,7 +45,7 @@ function Sidnup() {
     };
 
     const sendInfo = (user) => {
-        axios.post("http://localhost:8000/api/register", user).then((res) => {
+        API.post("/register", user).then((res) => {
             alert(checkResponse(res.data.message));
             clearForm;
             if (res.data.status) {

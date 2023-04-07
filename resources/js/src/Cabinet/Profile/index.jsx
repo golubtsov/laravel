@@ -2,14 +2,14 @@ import React from "react";
 import { useCookies } from "react-cookie";
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import API from "../../API";
 
 function Profile() {
     const form = React.createRef();
-    const [cookies, setCookies] = useCookies("token");
+    const [cookies] = useCookies("token");
     const [access, setAccess] = useState(true);
-    const [authorId, setAuthorId] = useState(
+    const [authorId] = useState(
         window.location.search.split("=")[1]
     ); // параметр id из адресса страницы для получения информации об авторе
     const [user, setUser] = useState({
@@ -26,9 +26,9 @@ function Profile() {
     };
 
     const getDataUser = () => {
-        axios
+        API
             .post(
-                `http://127.0.0.1:8000/api/author/${authorId}`,
+                `/author/${authorId}`,
                 cookies["token"]
             )
             .then((res) => {
@@ -51,8 +51,8 @@ function Profile() {
     const handleSubmit = (event) => {
         event.preventDefault();
         collectData();
-        axios
-            .put(`http://127.0.0.1:8000/api/author/update`, user)
+        API
+            .put(`/author/update`, user)
             .then((res) => {
                 alert(res.data.message);
                 window.history.back();
@@ -60,8 +60,8 @@ function Profile() {
     };
 
     useEffect(() => {
-        axios
-            .post("http://127.0.0.1:8000/api/token", cookies["token"])
+        API
+            .post("/token", cookies["token"])
             .then((res) => {
                 if (!res.data.access) {
                     setAccess(false);

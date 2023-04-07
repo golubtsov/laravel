@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Pagination from "../../Pagination";
-import axios from "axios";
+import API from "../../API";
 import "../scss/style.scss";
 
 function Books() {
@@ -47,45 +47,35 @@ function Books() {
     };
 
     const sendGenre = (genre) => {
-        axios
-            .post("http://127.0.0.1:8000/api/genres/create", genre)
-            .then((res) => {
-                alert(res.data.message);
-                location.reload();
-            });
+        API.post("/genres/create", genre).then((res) => {
+            alert(res.data.message);
+            location.reload();
+        });
     };
 
     const removeGenre = (id) => {
-        axios
-            .delete(`http://127.0.0.1:8000/api/genres/delete/${id}`, {
-                headers: {
-                    token: cookies["token"],
-                },
-                data: cookies["token"],
-            })
-            .then((res) => {
-                alert(res.data.message);
-                location.reload();
-            });
+        API.delete(`/genres/delete/${id}`, {
+            headers: {
+                token: cookies["token"],
+            },
+            data: cookies["token"],
+        }).then((res) => {
+            alert(res.data.message);
+            location.reload();
+        });
     };
 
     useEffect(() => {
-        axios
-            .post("http://127.0.0.1:8000/api/token", cookies["token"])
-            .then((res) => {
-                if (!res.data.access) {
-                    setAccess(false);
-                }
-            });
-        axios
-            .get(
-                `http://localhost:8000/api/genres_paginate?page=${currentPage}`
-            )
-            .then((res) => {
-                setCurrentPage(res.data.current_page);
-                setLastPage(res.data.last_page);
-                setListGenres(res.data.data);
-            });
+        API.post("/token", cookies["token"]).then((res) => {
+            if (!res.data.access) {
+                setAccess(false);
+            }
+        });
+        API.get(`/genres_paginate?page=${currentPage}`).then((res) => {
+            setCurrentPage(res.data.current_page);
+            setLastPage(res.data.last_page);
+            setListGenres(res.data.data);
+        });
     }, [access]);
 
     if (!checkRole() || !access) {
@@ -102,7 +92,10 @@ function Books() {
                             {listGenres.map((el) => (
                                 <div key={el.id} className="block">
                                     <div className="block-name">
-                                        <Link to={`../../genres/${el.id}`} className="link">
+                                        <Link
+                                            to={`../../genres/${el.id}`}
+                                            className="link"
+                                        >
                                             {el.name} - {el.books.length}
                                         </Link>
                                     </div>

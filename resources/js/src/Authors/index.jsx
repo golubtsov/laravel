@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import API from "../API";
 import Pagination from "../Pagination";
 
 function Authors() {
@@ -9,8 +9,8 @@ function Authors() {
     const [authors, setAuthors] = useState([]);
 
     useEffect(() => {
-        axios
-            .get(`http://127.0.0.1:8000/api/authors?page=${currentPage}`)
+        API
+            .get(`/authors?page=${currentPage}`)
             .then((res) => {
                 setCurrentPage(res.data.current_page);
                 setLastPage(res.data.last_page);

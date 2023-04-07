@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../API";
 import CardBook from "../CardBook";
 import Pagination from "../Pagination";
 
@@ -9,8 +9,8 @@ function Main() {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:8000/api/books?page=${currentPage}`)
+        API
+            .get(`/books?page=${currentPage}`)
             .then((res) => {
                 setCurrentPage(res.data.current_page);
                 setLastPage(res.data.last_page);

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import CardBook from "../CardBook";
-import axios from "axios";
+import API from "../API";
 
 function Books() {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        axios
-            .get(`http://127.0.0.1:8000/api/books`)
+        API
+            .get(`/books`)
             .then((res) => {
                 setBooks(res.data.data);
             });
@@ -21,7 +20,6 @@ function Books() {
                 </div>
                 <div className="blc-books">
                     {books.map((el, index) => (
-                        // <CardBook data={el} key={index} />
                         <li key={index}>{index}</li>
                     ))}
                 </div>

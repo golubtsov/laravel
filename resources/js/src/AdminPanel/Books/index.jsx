@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import axios from "axios";
+import API from "../../API";
 import Pagination from "../../Pagination";
 import "../scss/style.scss";
 
@@ -52,8 +52,8 @@ function Books() {
     };
 
     const sendBook = (book) => {
-        axios
-            .post("http://127.0.0.1:8000/api/books/create", book)
+        API
+            .post('/books/create', book)
             .then((res) => {
                 alert(res.data.message);
                 location.reload();
@@ -71,8 +71,8 @@ function Books() {
     };
 
     const removeBook = (id) => {
-        axios
-            .delete(`http://127.0.0.1:8000/api/books/delete/${id}`, {
+        API
+            .delete(`/books/delete/${id}`, {
                 headers: {
                     token: cookies["token"],
                 },
@@ -85,25 +85,25 @@ function Books() {
     };
 
     useEffect(() => {
-        axios
-            .post("http://127.0.0.1:8000/api/token", cookies["token"])
+        API
+            .post('/token', cookies["token"])
             .then((res) => {
                 if (!res.data.access) {
                     setAccess(false);
                 }
             });
-        axios
-            .get(`http://localhost:8000/api/books?page=${currentPage}`)
+        API
+            .get(`/books?page=${currentPage}`)
             .then((res) => {
                 setCurrentPage(res.data.current_page);
                 setLastPage(res.data.last_page);
                 setlistBooks(res.data.data);
             });
-        axios
-            .get("http://localhost:8000/api/list/authors")
+        API
+            .get('/list/authors')
             .then((res) => setlistAuthors(res.data));
-        axios
-            .get("http://localhost:8000/api/genres")
+        API
+            .get('/genres')
             .then((res) => setListGenres(res.data));
     }, [currentPage]);
 

@@ -15,7 +15,7 @@
     .blc-content {
         width: 100%;
         min-height: 80vh;
-        max-width: 1850px;
+        max-width: 1500px;
         margin: auto;
         margin-top: 30px;
         border: 1px solid #d4d4d4;
@@ -41,11 +41,13 @@
 
             h4 {
                 text-align: center;
+                font-size: 18px;
             }
 
             .link {
                 color: #3b393f;
                 text-decoration: none;
+                font-size: 16px;
 
                 &:hover {
                     text-decoration: underline;
@@ -53,17 +55,35 @@
             }
 
             .remove {
+                cursor: pointer;
                 color: #ff0000;
+            }
+
+            .blc-list {
+                .list {
+                    list-style-type: none;
+                    li {
+                        margin: 10px auto;
+
+                        input {
+                            margin-right: 10px;
+                        }
+                    }
+                }
             }
         }
 
         .blc-books {
             width: 100%;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
 
             @media screen and (max-width: 2000px) {
                 grid-template-columns: repeat(5, 1fr);
+            }
+
+            @media screen and (max-width: 1600px) {
+                grid-template-columns: repeat(4, 1fr);
             }
 
             @media screen and (max-width: 1300px) {
@@ -95,6 +115,14 @@
                         color: #3b393f;
                         text-decoration: none;
 
+                        @media screen and (max-width: 460px) {
+                            font-size: 14px;
+                        }
+
+                        @media screen and (max-width: 350px) {
+                            font-size: 12px;
+                        }
+
                         &:hover {
                             text-decoration: underline;
                         }
@@ -112,8 +140,9 @@
             width: 30%;
             float: left;
             margin: 10px;
-        
-            .btn-submit, .btn-remove {
+
+            .btn-submit,
+            .btn-remove {
                 display: block;
                 margin: 5px auto;
                 text-align: center;
@@ -127,15 +156,15 @@
                 transition: all 0.3s ease-in;
                 border: none;
                 text-decoration: none;
-        
+
                 &:hover {
                     background-color: #088308;
                 }
             }
-        
+
             .btn-remove {
                 background-color: #f12828;
-        
+
                 &:hover {
                     background-color: #cd0b0b;
                 }

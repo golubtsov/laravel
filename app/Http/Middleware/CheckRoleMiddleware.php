@@ -18,6 +18,7 @@ class CheckRoleMiddleware
     {
         try {
             $user = User::where('token', $request['token'])->get();
+            // return response(['req' => $request]);
             if (count($user) === 0) {
                 return response([
                     'access' => false,

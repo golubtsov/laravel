@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Link, Navigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import API from "../API";
 
 function LoginForm() {
     const form = React.createRef();
@@ -14,12 +14,12 @@ function LoginForm() {
             email: form.current.elements.email.value,
             password: form.current.elements.password.value,
         };
-        axios.post("http://localhost:8000/api/login", user).then((res) => {
+        API.post("/login", user).then((res) => {
             if (res.data.status) {
-                setCookie('token', { token: res.data.token });
-                setCookie('status', {status: res.data.status})
+                setCookie("token", { token: res.data.token });
+                setCookie("status", { status: res.data.status });
                 setToken(true);
-                window.location = window.location.origin + '/cabinet';
+                window.location = window.location.origin + "/cabinet";
             } else {
                 alert(checkResponse(res.data.message));
             }

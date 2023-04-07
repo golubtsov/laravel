@@ -97,7 +97,7 @@ function Cabinet() {
                     </div>
                     <div className="text">
                         <h4>Мои книги - {author.books.length}</h4>
-                        <div className="blc-genres">
+                        <div className="blc-list">
                             <ul className="list">
                                 {author.books.map((el, index) => (
                                     <li key={index}>

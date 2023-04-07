@@ -8,9 +8,13 @@ class UpdateUserAction
 {
     public function __invoke($user)
     {
-        return '$users';
         try {
-            
+            $findUser = User::find($user['id']);
+            $findUser->update([
+                'role' => $user['role']
+            ]);
+            $message['message'] = 'Роль пользователя изменена.';
+            return response($message);
         } catch (\ErrorException $error) {
             if ($error) {
                 $message['message'] = 'Что-то пошло не так, попробуйте немного позже.';

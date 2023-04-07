@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { Navigate } from "react-router";
-import axios from "axios";
+import API from "../../API";
 
 function UpdateBook() {
     const form = React.createRef();
@@ -43,8 +43,8 @@ function UpdateBook() {
     };
 
     const sendBook = (book) => {
-        axios
-            .put("http://127.0.0.1:8000/api/books/update", book)
+        API
+            .put("/books/update", book)
             .then((res) => {
                 alert(res.data.message);
                 window.history.back();
@@ -52,7 +52,7 @@ function UpdateBook() {
     };
 
     const getBook = () => {
-        axios.get(`http://127.0.0.1:8000/api/books/${bookId}`).then((res) => {
+        API.get(`/books/${bookId}`).then((res) => {
             form.current.elements.title.value = res.data.title;
             form.current.elements.description.value = res.data.description;
             setAuthorId(res.data.author_id);
@@ -60,8 +60,8 @@ function UpdateBook() {
     };
 
     useEffect(() => {
-        axios
-            .post("http://127.0.0.1:8000/api/token", cookies["token"])
+        API
+            .post("/token", cookies["token"])
             .then((res) => {
                 if (!res.data.access) {
                     setAccess(false);

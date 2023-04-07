@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../API";
 import CardBook from "../../CardBook";
 
 function Author() {
     const [author, setAuthor] = useState([]);
 
     useEffect(() => {
-        axios
-            .get(`${window.location.origin}/api${window.location.pathname}`)
+        API
+            .get(`${window.location.pathname}`)
             .then((res) => setAuthor(res.data));
     }, []);
 

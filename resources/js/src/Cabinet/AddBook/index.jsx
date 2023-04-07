@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { Navigate } from "react-router";
-import axios from "axios";
+import API from "../../API";
 
 function AddBook() {
     const form = React.createRef();
@@ -52,8 +52,8 @@ function AddBook() {
     }
 
     const sendBook = (book) => {
-        axios
-            .post("http://127.0.0.1:8000/api/books/create", book)
+        API
+            .post("/books/create", book)
             .then((res) => {
                 alert(res.data.message);
                 location.reload();
@@ -61,8 +61,8 @@ function AddBook() {
     };
 
     useEffect(() => {
-        axios
-            .post("http://127.0.0.1:8000/api/token", cookies["token"])
+        API
+            .post("/token", cookies["token"])
             .then((res) => {
                 if (!res.data.access) {
                     setAccess(false);
@@ -70,8 +70,8 @@ function AddBook() {
                     setId(res.data.author.id);
                 }
             });
-        axios
-            .get("http://localhost:8000/api/genres")
+        API
+            .get("/genres")
             .then((res) => setListGenres(res.data));
     }, [access]);
 

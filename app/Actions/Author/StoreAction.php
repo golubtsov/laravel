@@ -8,10 +8,6 @@ class StoreAction
 {
     public function __invoke($data)
     {
-        $message = [
-            'message' => ''
-        ];
-
         $author = [
             'name' => $data['name'],
             'about' => $data['about']

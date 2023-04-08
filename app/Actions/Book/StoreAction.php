@@ -32,7 +32,6 @@ class StoreAction
                     $message['message'] = 'Книга добавлена.';
                     return response($message);
                 }
-                
             } else {
                 $message['message'] = 'Книга с таким названием уже существует.';
                 return response($message);

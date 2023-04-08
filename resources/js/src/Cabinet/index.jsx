@@ -63,7 +63,6 @@ function Cabinet() {
                 if (!res.data.access) {
                     setAccess(false);
                 } else {
-                    checkRole();
                     setAuthor(res.data.author);
                 }
             });

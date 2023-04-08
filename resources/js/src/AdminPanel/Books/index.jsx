@@ -44,12 +44,12 @@ function Books() {
     };
 
     const createNewBook = () => {
-        newBook.append('token', cookies["token"]["token"]);
-        newBook.append('title', form.current.elements.title.value);
-        newBook.append('description', form.current.elements.description.value);
-        newBook.append('image', form.current.elements.image.files[0]);
-        newBook.append('author_id', form.current.elements.author_id.value);
-        newBook.append('genres', checkboks(form.current.elements.genre_id));
+        newBook.append("token", cookies["token"]["token"]);
+        newBook.append("title", form.current.elements.title.value);
+        newBook.append("description", form.current.elements.description.value);
+        newBook.append("image", form.current.elements.image.files[0]);
+        newBook.append("author_id", form.current.elements.author_id.value);
+        newBook.append("genres", checkboks(form.current.elements.genre_id));
     };
 
     const sendBook = (book) => {
@@ -161,10 +161,7 @@ function Books() {
                             </div>
                             <div className="data">
                                 <p>
-                                    <input
-                                        type="file"
-                                        name="image"
-                                    />
+                                    <input type="file" name="image" />
                                 </p>
                             </div>
                             <div className="data">

@@ -9,7 +9,13 @@ class BindBookGenreAction
     public function __invoke($bookId, $arrGenres)
     {
         try {
+            $arrGenres = explode(',', $arrGenres);
+            $arr = [];
             foreach ($arrGenres as $el) {
+                $el = (int)$el;
+                $arr[] = $el;
+            }
+            foreach ($arr as $el) {
                 BookGenre::create([
                     'genre_id' => $el,
                     'book_id' => $bookId

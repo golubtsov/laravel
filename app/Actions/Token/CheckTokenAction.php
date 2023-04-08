@@ -15,6 +15,13 @@ class CheckTokenAction
             if (count($user) === 0) {
                 return false;
             } else {
+                if($user[0]['role'] === 'admin'){
+                    return [
+                        'name' => $user[0]['name'],
+                        'role' => $user[0]['role'],
+                        'token' => $user[0]['token']
+                    ];
+                }
                 $author = UserAuthor::where('user_id', $user[0]['id'])->first();
                 $infoAuthor = (new AuthorByIdAction())->__invoke($author->author_id);
                 return $infoAuthor;

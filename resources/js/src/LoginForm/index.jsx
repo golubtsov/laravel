@@ -19,7 +19,11 @@ function LoginForm() {
                 setCookie("token", { token: res.data.token });
                 setCookie("status", { status: res.data.status });
                 setToken(true);
-                window.location = window.location.origin + "/cabinet";
+                if(res.data.status === 'admin'){
+                    window.location = window.location.origin + "/admin";
+                } else {
+                    window.location = window.location.origin + "/cabinet";
+                }
             } else {
                 alert(checkResponse(res.data.message));
             }

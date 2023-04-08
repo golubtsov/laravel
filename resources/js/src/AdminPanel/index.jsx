@@ -10,7 +10,7 @@ function AdminPanel() {
         books: 0,
         genres: 0,
         authors: 0,
-        users: 0
+        users: 0,
     });
 
     const checkRole = () => {
@@ -20,6 +20,11 @@ function AdminPanel() {
             }
         }
         return false;
+    };
+
+    const removeCookies = () => {
+        document.cookie = "token=; Max-Age=-1;";
+        document.cookie = "status=; Max-Age=-1;";
     };
 
     useEffect(() => {
@@ -33,7 +38,7 @@ function AdminPanel() {
         axios
             .post(`http://127.0.0.1:8000/api/admin`, cookies["token"])
             .then((res) => {
-                setInfoSite(res.data)
+                setInfoSite(res.data);
             });
     }, [access]);
 
@@ -49,18 +54,35 @@ function AdminPanel() {
                     <div className="blc-genres">
                         <ul className="list">
                             <li>
-                                <Link to={'./books'} className="link">Книги - {infoSite.books}</Link>
+                                <Link to={"./books"} className="link">
+                                    Книги - {infoSite.books}
+                                </Link>
                             </li>
                             <li>
-                                <Link to={'./genres'} className="link">Жанры - {infoSite.genres}</Link>
+                                <Link to={"./genres"} className="link">
+                                    Жанры - {infoSite.genres}
+                                </Link>
                             </li>
                             <li>
-                                <Link to={'./authors'} className="link">Авторы - {infoSite.authors}</Link>
+                                <Link to={"./authors"} className="link">
+                                    Авторы - {infoSite.authors}
+                                </Link>
                             </li>
                             <li>
-                                <Link to={'./users'} className="link">Пользователи - {infoSite.users}</Link>
+                                <Link to={"./users"} className="link">
+                                    Пользователи - {infoSite.users}
+                                </Link>
                             </li>
                         </ul>
+                    </div>
+                    <div className="text">
+                        <a
+                            onClick={() => removeCookies()}
+                            href="/"
+                            className="link"
+                        >
+                            Выйти
+                        </a>
                     </div>
                 </div>
             </div>

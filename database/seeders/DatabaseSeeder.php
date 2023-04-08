@@ -9,13 +9,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        \App\Models\User::factory()->create([
-            'name' => 'Администратор',
-            'email' => 'admin@admin.com',
-            'password' => '$2y$10$K.pID0TUE5Qx8cJIfUb9dOGo.HXNJGq0/mpK1/yUdtJ9ckmoXSupC',
-            'token' => '',
-            'role' => 'admin'
-        ]);
+        \App\Models\User::factory(1)->create();
 
         // ===========================================
 

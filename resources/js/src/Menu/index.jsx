@@ -2,29 +2,41 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import logo from "./images/logotip/logo.png";
-import iconUser from "./images/icons-user.png"
+import iconUser from "./images/icons-user.png";
 import Navbar from "../Navbar";
 import "./Menu.scss";
 
 function Menu() {
-
-    const [cookies] = useCookies('token');
+    const linkCabinet = "/cabinet";
+    const linkAdminPanel = "/admin";
+    const [cookies] = useCookies("token");
     const [activeMenu, setActiveMenu] = useState(false);
-    const [linkCabinetDisplay, setLinkCabinetDisplay] = useState('flex');
+    const [CabinetDisplay, setCabinetDisplay] = useState("flex");
+    const [linkToPanel, setLinkToPanel] = useState(linkCabinet);
 
     const handleMenu = () => {
         activeMenu ? setActiveMenu(false) : setActiveMenu(true);
     };
 
     const checkCookies = () => {
-        if(cookies['token'] === undefined) {
-            setLinkCabinetDisplay('none');
+        if (cookies["token"] === undefined) {
+            setCabinetDisplay("none");
         }
-    }
+    };
+
+    const checkRole = () => {
+        if (cookies["status"] !== undefined) {
+            if (cookies["status"]["status"] === "admin") {
+                setLinkToPanel(linkAdminPanel);
+            }
+        }
+        return false;
+    };
 
     useEffect(() => {
         checkCookies();
-    }, [linkCabinetDisplay]);
+        checkRole();
+    }, [CabinetDisplay]);
 
     return (
         <menu>
@@ -39,8 +51,8 @@ function Menu() {
                         <img src={logo} className="logo" />
                     </Link>
                 </div>
-                <div style={{display: linkCabinetDisplay}} className="blc-user">
-                    <Link className="user-cabinet" to="/cabinet">
+                <div style={{ display: CabinetDisplay }} className="blc-user">
+                    <Link className="user-cabinet" to={linkToPanel}>
                         <img src={iconUser} className="icon-user" />
                     </Link>
                 </div>

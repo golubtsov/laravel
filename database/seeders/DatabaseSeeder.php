@@ -60,61 +60,73 @@ class DatabaseSeeder extends Seeder
             [
                 'title' => 'Война и мир',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\1.jpg',
                 'author_id' => 1
             ],
             [
                 'title' => 'Анна Каренина',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\2.jpg',
                 'author_id' => 1
             ],
             [
                 'title' => 'Преступление и наказвние',
+                'image' => 'storage/books\3.jpg',
                 'description' => 'Что-то о книге',
                 'author_id' => 2
             ],
             [
                 'title' => '1984',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\4.jpg',
                 'author_id' => 3
             ],
             [
                 'title' => 'Скотный двор',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\5.jpg',
                 'author_id' => 3
             ],
             [
                 'title' => 'Яркие люди Древней Руси',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\6.jpg',
                 'author_id' => 4
             ],
             [
                 'title' => 'Тревожные люди',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\7.png',
                 'author_id' => 5
             ],
             [
                 'title' => 'Жена винодела',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\8.png',
                 'author_id' => 6
             ],
             [
                 'title' => 'Жизнь, которая не стала моей',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\9.jpg',
                 'author_id' => 6
             ],
             [
                 'title' => 'Код Давинчи',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\10.jpg',
                 'author_id' => 7
             ],
             [
                 'title' => 'Происхождение',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\11.jpg',
                 'author_id' => 7
             ],
             [
                 'title' => 'Институт',
                 'description' => 'Что-то о книге',
+                'image' => 'storage/books\12.jpg',
                 'author_id' => 8
             ]
         ];

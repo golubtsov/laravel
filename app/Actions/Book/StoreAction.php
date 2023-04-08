@@ -4,20 +4,18 @@ namespace App\Actions\Book;
 
 use App\Models\Book;
 use App\Actions\BookGenre\BindBookGenreAction;
+use App\Actions\Book\UploadImageAction;
 
 class StoreAction
 {
     public function __invoke($newBook)
     {
-        $message = [
-            'message' => ''
-        ];
-
         try {
             $book = [
                 'author_id' => $newBook['author_id'],
                 'title' => $newBook['title'],
-                'description' => $newBook['description']
+                'description' => $newBook['description'],
+                'image' => (new UploadImageAction)->__invoke($newBook)
             ];
 
             $haveBook = Book::where('title', $newBook['title'])->get();
@@ -26,6 +24,7 @@ class StoreAction
                 $bookId = Book::create([
                     'author_id' => $book['author_id'],
                     'title' => $book['title'],
+                    'image' => $book['image'],
                     'description' => $book['description']
                 ]);
 

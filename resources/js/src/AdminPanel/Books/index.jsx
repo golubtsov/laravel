@@ -14,7 +14,7 @@ function Books() {
     const [listBooks, setlistBooks] = useState([]);
     const [listAuthors, setlistAuthors] = useState([]);
     const [listGenres, setListGenres] = useState([]);
-    const newBook = {};
+    const newBook = new FormData();
 
     const checkRole = () => {
         if (cookies["status"] !== undefined) {
@@ -44,20 +44,18 @@ function Books() {
     };
 
     const createNewBook = () => {
-        newBook.token = cookies["token"]["token"];
-        newBook.title = form.current.elements.title.value;
-        newBook.description = form.current.elements.description.value;
-        newBook.author_id = form.current.elements.author_id.value;
-        newBook.genres = checkboks(form.current.elements.genre_id);
+        newBook.append('token', cookies["token"]["token"]);
+        newBook.append('title', form.current.elements.title.value);
+        newBook.append('description', form.current.elements.description.value);
+        newBook.append('image', form.current.elements.image.files[0]);
+        newBook.append('author_id', form.current.elements.author_id.value);
+        newBook.append('genres', checkboks(form.current.elements.genre_id));
     };
 
     const sendBook = (book) => {
-        API
-            .post('/books/create', book)
-            .then((res) => {
-                alert(res.data.message);
-                location.reload();
-            });
+        API.post("/books/create", book).then((res) => {
+            alert(res.data.message);
+        });
     };
 
     const checkboks = (arr) => {
@@ -71,40 +69,30 @@ function Books() {
     };
 
     const removeBook = (id) => {
-        API
-            .delete(`/books/delete/${id}`, {
-                headers: {
-                    token: cookies["token"],
-                },
-                data: cookies["token"],
-            })
-            .then((res) => {
-                alert(res.data.message);
-                location.reload();
-            });
+        API.delete(`/books/delete/${id}`, {
+            headers: {
+                token: cookies["token"],
+            },
+            data: cookies["token"],
+        }).then((res) => {
+            alert(res.data.message);
+            location.reload();
+        });
     };
 
     useEffect(() => {
-        API
-            .post('/token', cookies["token"])
-            .then((res) => {
-                if (!res.data.access) {
-                    setAccess(false);
-                }
-            });
-        API
-            .get(`/books?page=${currentPage}`)
-            .then((res) => {
-                setCurrentPage(res.data.current_page);
-                setLastPage(res.data.last_page);
-                setlistBooks(res.data.data);
-            });
-        API
-            .get('/list/authors')
-            .then((res) => setlistAuthors(res.data));
-        API
-            .get('/genres')
-            .then((res) => setListGenres(res.data));
+        API.post("/token", cookies["token"]).then((res) => {
+            if (!res.data.access) {
+                setAccess(false);
+            }
+        });
+        API.get(`/books?page=${currentPage}`).then((res) => {
+            setCurrentPage(res.data.current_page);
+            setLastPage(res.data.last_page);
+            setlistBooks(res.data.data);
+        });
+        API.get("/list/authors").then((res) => setlistAuthors(res.data));
+        API.get("/genres").then((res) => setListGenres(res.data));
     }, [currentPage]);
 
     if (!checkRole() || !access) {
@@ -121,7 +109,12 @@ function Books() {
                             {listBooks.map((el) => (
                                 <div key={el.id} className="block">
                                     <div className="block-name">
-                                        <Link to={`../../books/${el.id}`} className="link">{el.title}</Link>
+                                        <Link
+                                            to={`../../books/${el.id}`}
+                                            className="link"
+                                        >
+                                            {el.title}
+                                        </Link>
                                     </div>
                                     <div className="btn-remove">
                                         <button
@@ -164,6 +157,14 @@ function Books() {
                                         rows="10"
                                         required
                                     ></textarea>
+                                </p>
+                            </div>
+                            <div className="data">
+                                <p>
+                                    <input
+                                        type="file"
+                                        name="image"
+                                    />
                                 </p>
                             </div>
                             <div className="data">

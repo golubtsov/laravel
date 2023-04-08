@@ -9,11 +9,6 @@ class UpdateDataAction
 {
     public function __invoke($data)
     {
-
-        $message = [
-            'message' => ''
-        ];
-
         try {
             $author = Author::find($data['id']);
             $user = User::find($author->user[0]->id);

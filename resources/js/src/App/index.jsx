@@ -20,6 +20,7 @@ import GenresAdmin from "../AdminPanel/GenresAdmin";
 import AuthorsAdmin from "../AdminPanel/AuthorsAdmin";
 import UsersAdmin from "../AdminPanel/UsersAdmin";
 import Footer from "../Footer";
+import Test from "../TEST";
 
 function App() {
     return (
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/admin/genres" element={<GenresAdmin />} />
                 <Route path="/admin/authors" element={<AuthorsAdmin />} />
                 <Route path="/admin/users" element={<UsersAdmin />} />
+                <Route path="/test" element={<Test />} />
                 <Route path="*" element={<Error />} />
             </Routes>
             <Footer />

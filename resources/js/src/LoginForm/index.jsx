@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import API from "../API";
+import Popup from "../Popup";
+import clearForm from "../functions/clearForm";
 
 function LoginForm() {
     const form = React.createRef();
     const [cookies, setCookie] = useCookies(["token"]);
     const [token, setToken] = useState(false);
+    const [displayPopup, setDisplayPopup] = useState("none");
+    const [message, setMessage] = useState("");
 
     const handleForm = (event) => {
         event.preventDefault();
@@ -25,19 +29,27 @@ function LoginForm() {
                     window.location = window.location.origin + "/cabinet";
                 }
             } else {
-                alert(checkResponse(res.data.message));
+                showPopup();
+                setMessage(res.data.message);
             }
         });
     };
 
-    const checkResponse = (msg) => {
-        if (msg.email === undefined && msg.password === undefined) {
-            return msg;
-        } else if (msg.email !== undefined && msg.password === undefined) {
-            return msg.email;
-        } else {
-            return msg.password;
-        }
+    // const checkResponse = (msg) => {
+    //     if (msg.email === undefined && msg.password === undefined) {
+    //         return msg;
+    //     } else if (msg.email !== undefined && msg.password === undefined) {
+    //         return msg.email;
+    //     } else {
+    //         return msg.password;
+    //     }
+    // };
+
+    const showPopup = () => {
+        setDisplayPopup("flex");
+        setTimeout(() => {
+            setDisplayPopup("none");
+        }, 2000);
     };
 
     useEffect(() => {}, [token]);
@@ -79,6 +91,7 @@ function LoginForm() {
                     </Link>
                 </div>
             </form>
+            <Popup display={displayPopup} message={message} />
         </div>
     );
 }

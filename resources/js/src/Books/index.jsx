@@ -5,11 +5,9 @@ function Books() {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        API
-            .get(`/books`)
-            .then((res) => {
-                setBooks(res.data.data);
-            });
+        API.get(`/books`).then((res) => {
+            setBooks(res.data.data);
+        });
     }, []);
 
     return (

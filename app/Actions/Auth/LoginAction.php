@@ -15,23 +15,22 @@ class LoginAction
             'password' => ['required']
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response([
                 'status' => false,
-                'message' => $validator->getMessageBag()
+                'message' => 'Заполните все поля формы. Проверьте правильность заполнения Email.'
             ]);
         }
 
-        if(Auth::attempt([
+        if (Auth::attempt([
             'email' => $data['email'],
             'password' => $data['password']
-        ])){
+        ])) {
             $user = (new GetUserByEmailAction())->__invoke($data['email']);
             return response([
                 'status' => true,
-                'message' => 'Авторизация прошла успешно!',
                 'token' => $user['token'],
-                'status' =>$user['status']
+                'status' => $user['status']
             ]);
         } else {
             return response([

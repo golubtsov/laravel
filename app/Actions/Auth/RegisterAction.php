@@ -41,10 +41,18 @@ class RegisterAction
         ]);
 
         if ($validator->fails()) {
-            return [
-                'status' => false,
-                'message' => $validator->messages()
-            ];
+            if($validator->messages()->has('email')){
+                return [
+                    'status' => false,
+                    'message' => 'Поле Email заполнено не правильно.'
+                ];
+            }
+            if($validator->messages()->has('password')){
+                return [
+                    'status' => false,
+                    'message' => 'Пароли должены совпадать и быть не менее 8 символов.'
+                ];
+            }
         } else {
             return [
                 'status' => true

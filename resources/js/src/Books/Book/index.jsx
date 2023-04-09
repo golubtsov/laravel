@@ -6,9 +6,7 @@ function Book() {
     const [book, setBook] = useState([]);
 
     useEffect(() => {
-        API
-            .get(`${window.location.pathname}`)
-            .then((res) => setBook(res.data));
+        API.get(`${window.location.pathname}`).then((res) => setBook(res.data));
     }, []);
 
     return (
@@ -17,8 +15,14 @@ function Book() {
                 <div className="blc-title">
                     <h2 className="title">{book["title"]}</h2>
                 </div>
+                <div className="blc-image">
+                    <img src={`http://127.0.0.1:8000/${book['image']}`} alt={book["title"]} className="image-book" />
+                </div>
                 <div className="text">
-                    <Link className="link" to={`../../authors/${book["author_id"]}`}>
+                    <Link
+                        className="link"
+                        to={`../../authors/${book["author_id"]}`}
+                    >
                         <b>Автор:</b> {book["author_name"]}
                     </Link>
                 </div>

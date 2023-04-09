@@ -3,6 +3,8 @@ import { Navigate, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import API from "../../API";
 import Pagination from "../../Pagination";
+import Popup from "../../Popup";
+import clearForm from "../../functions/clearForm";
 import "../scss/style.scss";
 
 function Books() {
@@ -12,6 +14,8 @@ function Books() {
     const [cookies] = useCookies("");
     const [access, setAccess] = useState(true);
     const [listAuthors, setlistAuthors] = useState([]);
+    const [displayPopup, setDisplayPopup] = useState('none');
+    const [message, setMessage] = useState('');
     const newAuthor = {};
 
     const checkRole = () => {
@@ -34,7 +38,8 @@ function Books() {
     const checkForm = (arr) => {
         for (let i = 0; i < arr.length - 1; i++) {
             if (arr[i].value === "") {
-                alert("Заполните все поля.");
+                showPopup();
+                setMessage("Заполните все поля.");
                 return false;
             }
         }
@@ -51,10 +56,18 @@ function Books() {
         API
             .post('/authors/create', author)
             .then((res) => {
-                alert(res.data.message);
-                location.reload();
+                showPopup();
+                setMessage(res.data.message);
+                clearForm(form.current.elements);
             });
     };
+
+    const showPopup = () => {
+        setDisplayPopup('flex');
+        setTimeout(() => {
+            setDisplayPopup('none');
+        }, 2000);
+    }
 
     useEffect(() => {
         API
@@ -71,7 +84,7 @@ function Books() {
                 setLastPage(res.data.last_page);
                 setlistAuthors(res.data.data);
             });
-    }, [access]);
+    }, [access, displayPopup, currentPage]);
 
     if (!checkRole() || !access) {
         return <Navigate to={"/"} />;
@@ -87,7 +100,7 @@ function Books() {
                             {listAuthors.map((el) => (
                                 <div key={el.id} className="block">
                                     <div className="block-name">
-                                        <Link to={`../../authors/${el.id}`} className="link">
+                                        <Link onClick={() => window.scrollTo(0, 0)} to={`../../authors/${el.id}`} className="link">
                                             {el.name} - {el.books.length}
                                         </Link>
                                     </div>
@@ -139,6 +152,7 @@ function Books() {
                         </form>
                     </div>
                 </div>
+                <Popup display={displayPopup} message={message}/>
             </div>
         );
     }

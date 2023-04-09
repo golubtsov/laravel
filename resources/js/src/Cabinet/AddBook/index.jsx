@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { Navigate } from "react-router";
 import API from "../../API";
+import Popup from "../../Popup";
+import clearForm from "../../functions/clearForm";
 
 function AddBook() {
     const form = React.createRef();
@@ -9,6 +11,8 @@ function AddBook() {
     const [access, setAccess] = useState(true);
     const [listGenres, setListGenres] = useState([]);
     const [idAuthor, setIdAuthor] = useState();
+    const [displayPopup, setDisplayPopup] = useState("none");
+    const [message, setMessage] = useState("");
     const newBook = new FormData();
 
     const checkCookies = () => {
@@ -30,7 +34,8 @@ function AddBook() {
         for (let i = 0; i < arr.length - 1; i++) {
             if (arr[i].value === "") {
                 check = true;
-                alert("Заполните все поля формы.");
+                showPopup();
+                setMessage("Заполните все поля формы.");
                 break;
             }
         }
@@ -58,10 +63,19 @@ function AddBook() {
 
     const sendBook = (book) => {
         API.post("/books/create", book).then((res) => {
-            alert(res.data.message);
-            location.reload();
+            showPopup();
+            setMessage(res.data.message);
+            clearForm(form.current.elements);
         });
     };
+
+    const showPopup = () => {
+        setDisplayPopup('flex');
+        setTimeout(() => {
+            setDisplayPopup('none');
+            window.history.back();
+        }, 2000);
+    }
 
     useEffect(() => {
         API.post("/token", cookies["token"]).then((res) => {
@@ -128,6 +142,7 @@ function AddBook() {
                         </button>
                     </div>
                 </form>
+                <Popup display={displayPopup} message={message}/>
             </div>
         );
     }

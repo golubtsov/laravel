@@ -1,0 +1,35 @@
+.blc-popup {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(198, 198, 198, 0.693);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #555555;
+
+    .window-popup {
+        width: 360px;
+        background-color: white;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.555);
+        border-radius: 5px;
+
+        .text {
+            margin: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            p {
+                font-size: 28px;
+
+                @media screen and (max-width: 375px) {
+                    font-size: 22px;
+                }
+            }
+        }
+
+    }
+}

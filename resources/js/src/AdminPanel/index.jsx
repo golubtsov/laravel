@@ -4,7 +4,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 
 function AdminPanel() {
-    const [cookies] = useCookies("");
+    const [cookies] = useCookies("token");
     const [access, setAccess] = useState(true);
     const [infoSite, setInfoSite] = useState({
         books: 0,

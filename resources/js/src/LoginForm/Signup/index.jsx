@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../API";
+import Popup from "../../Popup";
+import clearForm from "../../functions/clearForm";
 
 function Sidnup() {
     const form = React.createRef();
-    const [display, setDisplay] = useState('none');
+    const [display, setDisplay] = useState("none");
+    const [displayPopup, setDisplayPopup] = useState("none");
+    const [message, setMessage] = useState("");
     let newUser = {};
 
     const handleSubmit = (event) => {
@@ -37,7 +41,8 @@ function Sidnup() {
     const checkForm = (array) => {
         for (let i = 0; i < array.length - 1; i++) {
             if (array[i].value === "") {
-                alert("Заполните все поля формы.");
+                showPopup();
+                setMessage("Заполните все поля формы.");
                 return;
             }
         }
@@ -46,18 +51,19 @@ function Sidnup() {
 
     const sendInfo = (user) => {
         API.post("/register", user).then((res) => {
-            alert(checkResponse(res.data.message));
-            clearForm;
+            showPopup();
+            setMessage(checkResponse(res.data.message));
             if (res.data.status) {
                 setDisplay("block");
             }
         });
     };
 
-    const clearForm = () => {
-        for (let i = 0; i < array.length; i++) {
-            array[i].value = "";
-        }
+    const showPopup = () => {
+        setDisplayPopup("flex");
+        setTimeout(() => {
+            setDisplayPopup("none");
+        }, 2000);
     };
 
     useEffect(() => {}, [display]);
@@ -114,14 +120,12 @@ function Sidnup() {
                     </button>
                 </div>
                 <div style={{ display: display }} className="data">
-                    <Link
-                        className="link"
-                        to="../login"
-                    >
+                    <Link className="link" to="../login">
                         Войти
                     </Link>
                 </div>
             </form>
+            <Popup display={displayPopup} message={message} />
         </div>
     );
 }

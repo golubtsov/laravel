@@ -13,10 +13,10 @@ function CardBook({ data }) {
                 <img src={`http://127.0.0.1:8000/${image}`} />
             </div>
             <div className="title">
-                <Link to={`/books/${id}`}  className="link">{title}</Link>
+                <Link onClick={window.scrollTo(0, 0)} to={`/books/${id}`}  className="link">{title}</Link>
             </div>
             <div className="title">
-                <Link to={`/authors/${author.id}`} className="link">{author.name}</Link>
+                <Link onClick={window.scrollTo(0, 0)} to={`/authors/${author.id}`} className="link">{author.name}</Link>
             </div>
         </div>
     );

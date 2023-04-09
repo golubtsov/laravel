@@ -3,6 +3,8 @@ import { Navigate, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Pagination from "../../Pagination";
 import API from "../../API";
+import Popup from "../../Popup";
+import clearForm from "../../functions/clearForm";
 import "../scss/style.scss";
 
 function Books() {
@@ -12,6 +14,8 @@ function Books() {
     const [cookies] = useCookies("");
     const [access, setAccess] = useState(true);
     const [listGenres, setListGenres] = useState([]);
+    const [displayPopup, setDisplayPopup] = useState("none");
+    const [message, setMessage] = useState("");
     const newGenre = {};
 
     const checkRole = () => {
@@ -34,7 +38,8 @@ function Books() {
     const checkForm = (arr) => {
         for (let i = 0; i < arr.length - 1; i++) {
             if (arr[i].value === "") {
-                alert("Заполните все поля.");
+                showPopup();
+                setMessage("Заполните все поля.");
                 return false;
             }
         }
@@ -48,8 +53,9 @@ function Books() {
 
     const sendGenre = (genre) => {
         API.post("/genres/create", genre).then((res) => {
-            alert(res.data.message);
-            location.reload();
+            showPopup();
+            setMessage(res.data.message);
+            clearForm(form.current.elements);
         });
     };
 
@@ -60,9 +66,16 @@ function Books() {
             },
             data: cookies["token"],
         }).then((res) => {
-            alert(res.data.message);
-            location.reload();
+            showPopup();
+            setMessage(res.data.message);
         });
+    };
+
+    const showPopup = () => {
+        setDisplayPopup("flex");
+        setTimeout(() => {
+            setDisplayPopup("none");
+        }, 2000);
     };
 
     useEffect(() => {
@@ -76,7 +89,7 @@ function Books() {
             setLastPage(res.data.last_page);
             setListGenres(res.data.data);
         });
-    }, [access]);
+    }, [access, currentPage, displayPopup]);
 
     if (!checkRole() || !access) {
         return <Navigate to={"/"} />;
@@ -143,6 +156,7 @@ function Books() {
                         </form>
                     </div>
                 </div>
+                <Popup display={displayPopup} message={message}/>
             </div>
         );
     }

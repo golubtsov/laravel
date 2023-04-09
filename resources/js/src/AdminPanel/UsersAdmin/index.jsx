@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import API from "../../API";
 import { useCookies } from "react-cookie";
+import Popup from "../../Popup";
+import clearForm from "../../functions/clearForm";
 import "../scss/style.scss";
 
 function Books() {
@@ -9,6 +11,8 @@ function Books() {
     const [cookies] = useCookies("");
     const [access, setAccess] = useState(true);
     const [listUsers, setListUsers] = useState([]);
+    const [displayPopup, setDisplayPopup] = useState("none");
+    const [message, setMessage] = useState("");
     const user = {};
 
     const checkRole = () => {
@@ -25,17 +29,24 @@ function Books() {
         if (user.role !== undefined) {
             sendUser(user);
         } else {
-            alert("Чтобы изменить, выбирите элемент.");
+            showPopup();
+            setMessage("Чтобы изменить, выбирите элемент.");
         }
     };
 
     const sendUser = (user) => {
-        API
-            .put("/admin/users/update", user)
-            .then((res) => {
-                alert(res.data.message);
-            });
+        API.put("/admin/users/update", user).then((res) => {
+            showPopup();
+            setMessage(res.data.message);
+        });
     };
+
+    const showPopup = () => {
+        setDisplayPopup('flex');
+        setTimeout(() => {
+            setDisplayPopup('none');
+        }, 2000);
+    }
 
     function handleSelect(event) {
         user.token = cookies["token"]["token"];
@@ -44,17 +55,15 @@ function Books() {
     }
 
     useEffect(() => {
-        API
-            .post("/token", cookies["token"])
-            .then((res) => {
-                if (!res.data.access) {
-                    setAccess(false);
-                }
-            });
-        API
-            .post("/admin/users", cookies["token"])
-            .then((res) => setListUsers(res.data));
-    }, [access]);
+        API.post("/token", cookies["token"]).then((res) => {
+            if (!res.data.access) {
+                setAccess(false);
+            }
+        });
+        API.post("/admin/users", cookies["token"]).then((res) =>
+            setListUsers(res.data)
+        );
+    }, [access, displayPopup]);
 
     if (!checkRole() || !access) {
         return <Navigate to={"/"} />;
@@ -70,7 +79,9 @@ function Books() {
                             <form ref={form}>
                                 <div className="user">
                                     <div className="name">
-                                        <p><b>id: {el.id}</b> | {el.name}</p>
+                                        <p>
+                                            <b>id: {el.id}</b> | {el.name}
+                                        </p>
                                     </div>
                                     <div className="email">
                                         <p>{el.email}</p>
@@ -100,6 +111,7 @@ function Books() {
                         ))}
                     </div>
                 </div>
+                <Popup display={displayPopup} message={message}/>
             </div>
         );
     }

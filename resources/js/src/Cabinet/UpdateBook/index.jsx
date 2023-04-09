@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { Navigate } from "react-router";
 import API from "../../API";
+import Popup from "../../Popup";
 
 function UpdateBook() {
     const form = React.createRef();
     const [cookies] = useCookies("token");
     const [access, setAccess] = useState(true);
     const [authorId, setAuthorId] = useState(0);
+    const [displayPopup, setDisplayPopup] = useState("none");
+    const [message, setMessage] = useState("");
     const bookId = window.location.search.split("=")[1]; // параметр id из адресса страницы для получения информации о книге
     const updateBook = {};
 
@@ -23,7 +26,8 @@ function UpdateBook() {
         for (let i = 0; i < arr.length - 1; i++) {
             if (arr[i].value === "") {
                 check = true;
-                alert("Заполните все поля формы.");
+                showPopup();
+                setMessage("Заполните все поля формы.");
                 break;
             }
         }
@@ -46,8 +50,8 @@ function UpdateBook() {
         API
             .put("/books/update", book)
             .then((res) => {
-                alert(res.data.message);
-                window.history.back();
+                showPopup();
+                setMessage(res.data.message);
             });
     };
 
@@ -59,6 +63,14 @@ function UpdateBook() {
         });
     };
 
+    const showPopup = () => {
+        setDisplayPopup('flex');
+        setTimeout(() => {
+            setDisplayPopup('none');
+            window.history.back();
+        }, 2000);
+    }
+
     useEffect(() => {
         API
             .post("/token", cookies["token"])
@@ -69,7 +81,7 @@ function UpdateBook() {
                     getBook();
                 }
             });
-    }, [access]);
+    }, [access, displayPopup]);
 
     if (checkCookies() || !access) {
         return <Navigate to={"/"} />;
@@ -107,6 +119,7 @@ function UpdateBook() {
                         </button>
                     </div>
                 </form>
+                <Popup display={displayPopup} message={message}/>
             </div>
         );
     }

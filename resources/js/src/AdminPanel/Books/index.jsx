@@ -3,6 +3,8 @@ import { Navigate, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import API from "../../API";
 import Pagination from "../../Pagination";
+import Popup from "../../Popup";
+import clearForm from "../../functions/clearForm";
 import "../scss/style.scss";
 
 function Books() {
@@ -14,6 +16,8 @@ function Books() {
     const [listBooks, setlistBooks] = useState([]);
     const [listAuthors, setlistAuthors] = useState([]);
     const [listGenres, setListGenres] = useState([]);
+    const [displayPopup, setDisplayPopup] = useState("none");
+    const [message, setMessage] = useState("");
     const newBook = new FormData();
 
     const checkRole = () => {
@@ -36,7 +40,8 @@ function Books() {
     const checkForm = (arr) => {
         for (let i = 0; i < arr.length - 1; i++) {
             if (arr[i].value === "") {
-                alert("Заполните все поля.");
+                showPopup();
+                setMessage("Заполните все поля.");
                 return false;
             }
         }
@@ -54,7 +59,9 @@ function Books() {
 
     const sendBook = (book) => {
         API.post("/books/create", book).then((res) => {
-            alert(res.data.message);
+            showPopup();
+            setMessage(res.data.message);
+            clearForm(form.current.elements);
         });
     };
 
@@ -75,10 +82,18 @@ function Books() {
             },
             data: cookies["token"],
         }).then((res) => {
-            alert(res.data.message);
-            location.reload();
+            showPopup();
+            setMessage(res.data.message);
         });
     };
+
+    const showPopup = () => {
+        setDisplayPopup('flex');
+        setTimeout(() => {
+            setDisplayPopup('none');
+        }, 2000);
+    }
+
 
     useEffect(() => {
         API.post("/token", cookies["token"]).then((res) => {
@@ -93,7 +108,7 @@ function Books() {
         });
         API.get("/list/authors").then((res) => setlistAuthors(res.data));
         API.get("/genres").then((res) => setListGenres(res.data));
-    }, [currentPage]);
+    }, [currentPage, displayPopup]);
 
     if (!checkRole() || !access) {
         return <Navigate to={"/"} />;
@@ -165,6 +180,7 @@ function Books() {
                                 </p>
                             </div>
                             <div className="data">
+                                <p>Выбирите автора</p>
                                 <p>
                                     <select name="author_id" id="">
                                         {listAuthors.map((el) => (
@@ -200,6 +216,7 @@ function Books() {
                         </form>
                     </div>
                 </div>
+                <Popup display={displayPopup} message={message} />
             </div>
         );
     }

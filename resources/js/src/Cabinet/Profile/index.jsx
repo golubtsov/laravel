@@ -4,20 +4,22 @@ import { useState, useEffect } from "react";
 import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
 import API from "../../API";
+import Popup from "../../Popup";
+import clearForm from "../../functions/clearForm";
 
 function Profile() {
     const form = React.createRef();
     const [cookies] = useCookies("token");
     const [access, setAccess] = useState(true);
-    const [authorId] = useState(
-        window.location.search.split("=")[1]
-    ); // параметр id из адресса страницы для получения информации об авторе
+    const [authorId] = useState(window.location.search.split("=")[1]); // параметр id из адресса страницы для получения информации об авторе
     const [user, setUser] = useState({
         name: "",
         about: "",
         email: "",
         books: [],
     });
+    const [displayPopup, setDisplayPopup] = useState("none");
+    const [message, setMessage] = useState("");
 
     const checkCookies = () => {
         if (cookies["token"] === "undefined") {
@@ -26,18 +28,14 @@ function Profile() {
     };
 
     const getDataUser = () => {
-        API
-            .post(
-                `/author/${authorId}`,
-                cookies["token"]
-            )
-            .then((res) => {
-                if (!res.data.access) {
-                    alert(res.data.message);
-                } else {
-                    setUser(res.data);
-                }
-            });
+        API.post(`/author/${authorId}`, cookies["token"]).then((res) => {
+            if (!res.data.access) {
+                showPopup();
+                setMessage(res.data.message);
+            } else {
+                setUser(res.data);
+            }
+        });
     };
 
     const collectData = () => {
@@ -46,30 +44,33 @@ function Profile() {
         user.name = form.current.elements.name.value;
         user.about = form.current.elements.about.value;
         user.token = cookies["token"]["token"];
-    }
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         collectData();
-        API
-            .put(`/author/update`, user)
-            .then((res) => {
-                alert(res.data.message);
-                window.history.back();
-            });
+        API.put(`/author/update`, user).then((res) => {
+            showPopup();
+            setMessage(res.data.message);
+        });
     };
 
+    const showPopup = () => {
+        setDisplayPopup('flex');
+        setTimeout(() => {
+            setDisplayPopup('none');
+        }, 2000);
+    }
+
     useEffect(() => {
-        API
-            .post("/token", cookies["token"])
-            .then((res) => {
-                if (!res.data.access) {
-                    setAccess(false);
-                } else {
-                    getDataUser();
-                }
-            });
-    }, [access]);
+        API.post("/token", cookies["token"]).then((res) => {
+            if (!res.data.access) {
+                setAccess(false);
+            } else {
+                getDataUser();
+            }
+        });
+    }, [access. displayPopup]);
 
     if (checkCookies() || !access) {
         return <Navigate to={"/"} />;
@@ -123,6 +124,7 @@ function Profile() {
                         </button>
                     </div>
                 </form>
+                <Popup display={displayPopup} message={message}/>
             </div>
         );
     }

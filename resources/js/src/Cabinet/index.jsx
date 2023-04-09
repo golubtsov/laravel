@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Navigate, Link } from "react-router-dom";
 import axios from "axios";
+import Popup from "../Popup";
 
 function Cabinet() {
     const [cookies] = useCookies("");
@@ -9,6 +10,8 @@ function Cabinet() {
     const [author, setAuthor] = useState({ id: 0, books: [] });
     const [bookId, setBookId] = useState(0);
     const [displayBtns, setDisplayBtns] = useState("none");
+    const [displayPopup, setDisplayPopup] = useState("none");
+    const [message, setMessage] = useState("");
 
     const checkCookies = () => {
         if (cookies["token"] === undefined || cookies["status"] === undefined) {
@@ -50,7 +53,6 @@ function Cabinet() {
                 data: cookies["token"],
             })
             .then((res) => {
-                alert(res.data.message);
                 removeCookies();
                 location.reload();
             });
@@ -140,6 +142,7 @@ function Cabinet() {
                         </p>
                     </div>
                 </div>
+                <Popup display={displayPopup} message={message}/>
             </div>
         );
     }
